@@ -14,25 +14,16 @@ export class DoctorsListComponent implements OnInit {
       id: 1,
       name: "Jan",
       surname: "Nowak",
-      spec: ["Okulista, Laryngolog, Dietetyk"]
+      spec: ["Okulista", "Laryngolog", "Dietetyk"]
     },
-    {
-      id: 2,
-      name: "Tomasz",
-      surname: "Wawrzyn",
-      spec: ["Dentysta"]
-    },
-    {
-      id: 3,
-      name: "Kamil",
-      surname: "Wysocki",
-      spec: ["ortopeda"]
-    }
+    new Doctor(2, "Tomasz", "Wawrzyn", ["Dentysta"]),
+    new Doctor(3, "Pawel", "Nadworny", ["Lekarz", "Ortopeda", "Pediatra"]),
+    new Doctor(4, "Witold", "Gawedziarz", ["Okulista", "Weterynarz"])
   ];
 
   dodajLekarza(lekarz: Doctor) {
+    console.log("Wywolano - dodajLekarza()");
     this.doctorsTab.push(lekarz);
-    console.log("Wywolano funkcje dodajLekarza");
     // spr/zrob czy this.doctorsTab.spec jest tablica, czy specki sa w innych indeksach
 
     // console.log("lekarz spec = " + lekarz.spec);
@@ -56,6 +47,14 @@ export class DoctorsListComponent implements OnInit {
     // this.doctorsTab.push(lekarz);
     // console.log("lekarz spec = " + lekarz.spec);
     // console.log("lekarz spec typeof = " + typeof lekarz.spec);
+  }
+
+  usunLekarza(lekarz: Doctor) {
+    let indexDoUsuniecia = this.doctorsTab.indexOf(lekarz);
+    if(indexDoUsuniecia !== -1) {
+      this.doctorsTab.splice(indexDoUsuniecia, 1);
+    }
+    console.log("Wywolano - usunLekarza()")
   }
 
   constructor() { }

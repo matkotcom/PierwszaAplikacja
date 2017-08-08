@@ -17,11 +17,11 @@
             <td>{{ lekarz.id }} | angularIndex = {{ i }}</td>
             <td>{{ lekarz.name }}</td>
             <td>{{ lekarz.surname }}</td>
-            <td>{{ lekarz.spec }}</td>
+             <td>{{ lekarz.spec }}</td> 
             <td> Tu bedzie button grafik </td>
             <td>
               <button class="btn">Edytuj</button>
-              <button class="btn">Usun</button>
+              <button (click)="usunLekarza(lekarz)" class="btn">Usun</button>
             </td>
           </tr>
         </tbody>
