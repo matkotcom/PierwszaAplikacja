@@ -1,4 +1,13 @@
 <div class="container">
+  
+  <my-header>
+    <div headerContent>
+      Panel administracyjny
+    </div>
+  </my-header>
+  
+  <add-new-doctor (doctorCreated)="dodajLekarza($event)"></add-new-doctor>
+
   <div class="row">
     <div class="col-sm-12">
       <table *ngIf="doctorsTab.length > 0" class="table table-striped my-table">
@@ -32,7 +41,4 @@
       </div>
     </div>
   </div>
-
-  <add-new-doctor (doctorCreated)="dodajLekarza($event)"></add-new-doctor>
-
 </div>
