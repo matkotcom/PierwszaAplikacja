@@ -1,0 +1,39 @@
+@import '../../../assets/styles/variables.less';
+
+.sidebar {
+    width: 200px;
+    background: @pomaranczowy;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    .logo {
+        display: block;
+        margin: 0 auto;
+        padding: 20px 0 20px 0;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+
+        li {
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 3px solid @red;
+        }
+
+        li:hover {
+            background: @hotOrange;
+            border-bottom-color: yellow;
+            transition: linear 500ms;
+        }
+
+        li.active {
+            background: @limonka;
+        }
+    }
+}
