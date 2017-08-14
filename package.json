@@ -1,4 +1,5 @@
 {
+  "CR": "Tutaj jakiś bałagan z zależnościami się zrobił - musiałam usunąć stare angular-cli i zainstalować nowe @nagular/cli, żeby odpalić aplikację, zmieniłam też angular-cli.json",
   "name": "aplikacja",
   "version": "0.0.0",
   "license": "MIT",
@@ -21,15 +22,17 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "core-js": "^2.4.1",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.11.1",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
+    "@angular/cli": "^1.3.0",
     "@angular/compiler-cli": "^2.3.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
-    "angular-cli": "1.0.0-beta.28.3",
     "bootstrap": "^4.0.0-alpha.6",
     "codelyzer": "~2.0.0-beta.1",
     "jasmine-core": "2.5.2",
