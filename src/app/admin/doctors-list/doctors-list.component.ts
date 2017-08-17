@@ -1,25 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DoktorService } from '../../doktor.service';
 import { Doctor } from '../models/doctor';
 
 @Component({
   selector: 'app-doctors-list',
   templateUrl: './doctors-list.component.html',
-  styleUrls: ['./doctors-list.component.less']
+  styleUrls: ['./doctors-list.component.less'],
+  // providers: [DoktorService] //nie trzeba, bo dodalem go do providers w module
 })
 export class DoctorsListComponent implements OnInit {
+  doctorsTab: Doctor[];
 
-  doctorsTab: Doctor[] = [
-    {
-      id: 1,
-      name: "Jan",
-      surname: "Nowak",
-      spec: ["Okulista", "Laryngolog", "Dietetyk"]
-    },
-    new Doctor(2, "Tomasz", "Wawrzyn", ["Dentysta"]),
-    new Doctor(3, "Pawel", "Nadworny", ["Lekarz", "Ortopeda", "Pediatra"]),
-    new Doctor(4, "Witold", "Gawedziarz", ["Okulista", "Weterynarz"])
-  ];
+  // doctorsTab: Doctor[] = [
+  //   {
+  //     id: 1,
+  //     name: "Jan",
+  //     surname: "Nowak",
+  //     spec: ["Okulista", "Laryngolog", "Dietetyk"]
+  //   },
+  //   new Doctor(2, "Tomasz", "Wawrzyn", ["Dentysta"]),
+  //   new Doctor(3, "Pawel", "Nadworny", ["Lekarz", "Ortopeda", "Pediatra"]),
+  //   new Doctor(4, "Witold", "Gawedziarz", ["Okulista", "Weterynarz"])
+  // ];
+  getDoctors(): void {
+    this.doctorsTab = this.doktorService.getDoctors();
+  }
 
   dodajLekarza(lekarz: Doctor) {
     console.log("Wywolano - dodajLekarza()");
@@ -57,9 +62,11 @@ export class DoctorsListComponent implements OnInit {
     console.log("Wywolano - usunLekarza()")
   }
 
-  constructor() { }
+  constructor(private doktorService: DoktorService) {
+  }
 
   ngOnInit() {
+    this.getDoctors();
   }
 
 }
