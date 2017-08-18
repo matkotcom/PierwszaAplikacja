@@ -25,6 +25,7 @@
   testowy works!
 </p>
 
+<hr>
 <div class="row">
   <div class="col-sm-12">
     <table *ngIf="doctorsTab.length > 0" class="table table-striped my-table">
@@ -39,11 +40,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lekarz of doctorsTab; let i = index">
+        <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">
+          <!-- spr, zmieniono linijke wyzej -->
           <td>{{ lekarz.id }} | angularIndex = {{ i }}</td>
-          <td>{{ lekarz.name }}</td>
-          <td>{{ lekarz.surname }}</td>
-            <td>{{ lekarz.spec }}</td> 
+          <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td>
+          <!-- spr, zmieniono linijke wyzej -->
+          <td>{{ lekarz.surname | uppercase}}</td>
+          <!-- spr, zmieniono linijke wyzej -->
+          <td>{{ lekarz.spec }}</td> 
           <td> Tu bedzie button grafik </td>
           <td>
             <button class="btn">Edytuj</button>
@@ -59,6 +63,38 @@
   </div>
 </div>
 
+wartosc zmiennej "zmienna" = {{ zmienna }} <br>
+
+<button class="btn btn-primary" (click)="zmienSortowanie()">Zmien sortowanie (rosnaco/malejaco)</button>
+
+<hr>
+wejsciowe:
+<ul *ngFor="let imie of lista">
+  <li>imie: {{ imie }}</li>
+</ul>
+
+<hr>
+posortowane:
+<ul *ngFor="let imie of lista | sortuj">
+  <li>imie: {{ imie }}</li>
+</ul>
+
+<hr>
 <p>SERWER TEST</p>
 <button (click)=loadGetData()>Test GET</button>
 <p>Wynik: {{ getData }}</p>
+
+<hr>
+to do:
+<ul>
+  <li>wskazowki Kaliny (inny sposob formularz, header zastanowic sie nad wygladem, do konstruktora dawac caly obiekt a nie pojedyncze wartosci)</li>
+    admin:
+      <li>wyswietlanie (imie, nazw, spec, miasto/a)</li>
+      <li>sortowanie wyswietlania po nazwiskach</li>
+      <li>usuwanie z listy</li>
+      <li>dodawanie lekarza (najpierw pod lista wyswietlania, pozniej inna zakladka) (na koncu dodac grafik ten co nizej)</li>
+      <li>edytowanie z listy -> zarzadzanie grafikiem (to przemyslec) (lista terminow: termin opisany przez dzien, godzina start, godzina koniec, zajety/wolny, jesli zajety to info o pacjencie)</li>
+      <hr>
+    pacjent:
+      <li>...</li>
+</ul>

@@ -13,7 +13,10 @@
     <div class="form-group"> 
       <input type="text" class="form-control" placeholder="specjalizacje (nazwa1, nazwa2, nazwa3)" #inputSpecjalizacje>
     </div>
-    <button (click)="createDoctor(inputId.value, inputImie.value, inputNazwisko.value, inputSpecjalizacje.value)" type="button" class="btn btn-primary">
+    <div class="form-group"> 
+      <input type="text" class="form-control" placeholder="miasta (nazwa1, nazwa2, nazwa3)" #inputMiasta>
+    </div>
+    <button (click)="createDoctor(inputId.value, inputImie.value, inputNazwisko.value, inputSpecjalizacje.value, inputMiasta.value)" type="button" class="btn btn-primary">
       Dodaj
     </button>
   </div>

@@ -4,10 +4,13 @@ export const doctorsTab: Doctor[] = [
     {
       id: 1,
       name: "Jan",
-      surname: "Nowak",
-      spec: ["Okulista", "Laryngolog", "Dietetyk"]
+      surname: "Zabrocki",
+      spec: ["Okulista", "Laryngolog", "Dietetyk"],
+      city: ["Wroclaw", "Legnica"]
     },
-    new Doctor(2, "Test", "Wawrzyn", ["Dentysta"]),
-    new Doctor(3, "Mock", "Nadworny", ["Lekarz", "Ortopeda", "Pediatra"]),
-    new Doctor(4, "Doctor", "Gawedziarz", ["Okulista", "Weterynarz"])
+    new Doctor(2, "Arek", "Barycki", ["Okulista", "Weterynarz"], ["Warszawa"]),
+    new Doctor(3, "Arek", "Baryckizxc", ["Okulista", "Weterynarz"], ["Warszawa"]),
+    new Doctor(4, "Mock", "Nadworny", ["Lekarz", "Ortopeda", "Pediatra"], ["Warszawa", "Poznan"]),
+    new Doctor(5, "Tadeusz", "Wawrzyn", ["Dentysta"], ["Poznan", "Rzeszow"]),
+    new Doctor(6, "Test", "Ajakis", ["Dentysta"], ["Krakow"])
   ];

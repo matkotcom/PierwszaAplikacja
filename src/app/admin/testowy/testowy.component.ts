@@ -11,21 +11,24 @@ import { TestowyService } from '../testowy.service';
   providers: [TestowyService]
 })
 export class TestowyComponent implements OnInit {
-  doctorsTab: Doctor[];
+  zmienna = "jakis tekst";
   obiekt;
+  // ==================== smieci wyzej ====================
+  doctorsTab: Doctor[];
+  lista: string[] = ['Zenek', 'Adrian', 'Patryk', 'Filip', 'Damian'];
+  getData: string;
+  typSortowania: string = 'malejaco';
+
+  zmienSortowanie(): void {
+    if (this.typSortowania == 'malejaco')
+      this.typSortowania = 'rosnaco';
+    else 
+      this.typSortowania = 'malejaco'
+  }
 
   getDoctors(): void {
     this.doctorsTab = this.doktorService.getDoctors();
   }
-
-  constructor(private doktorService: DoktorService, private testowyService: TestowyService) {
-  }
-
-  ngOnInit() {
-    this.getDoctors();
-  }
-
-  getData;
 
   loadGetData() {
     // this.getData = "dziala";
@@ -34,6 +37,13 @@ export class TestowyComponent implements OnInit {
       error => console.log(error),
       () => console.log("Pobieranie danych zakonczone")
     )
+  }
+
+  constructor(private doktorService: DoktorService, private testowyService: TestowyService) {
+  }
+
+  ngOnInit() {
+    this.getDoctors();
   }
 
 }
