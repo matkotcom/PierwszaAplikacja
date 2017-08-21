@@ -15,9 +15,9 @@ export class AddNewDoctorComponent implements OnInit {
     this.doctorCreated.emit(new Doctor(id, imie, nazwisko, specjalizacja, miasta));
   }
 
-  createDoctor1(nowy: Doctor) {
-    this.doctorCreated.emit(new Doctor(nowy.id, nowy.name, nowy.surname, nowy.spec, nowy.city));
-  }
+  // createDoctor(nowy: Doctor) {
+  //   this.doctorCreated.emit(new Doctor(nowy.id, nowy.name, nowy.surname, nowy.spec, nowy.city));
+  // }
 
   constructor() { }
 

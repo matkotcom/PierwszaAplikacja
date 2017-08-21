@@ -68,6 +68,46 @@ wartosc zmiennej "zmienna" = {{ zmienna }} <br>
 <button class="btn btn-primary" (click)="zmienSortowanie()">Zmien sortowanie (rosnaco/malejaco)</button>
 
 <hr>
+<form [formGroup]="doctorForm">
+  <div class="row">
+    <div class="col-sm-12">
+      <input [ngClass]="{'errorClass': !doctorForm.get('name').valid && doctorForm.get('name').dirty}" formControlName="name" type="text" class="form-control" placeholder="imie">
+       <p *ngIf="!doctorForm.get('name').valid && doctorForm.get('name').dirty" class="error">To pole jest wymagane</p> 
+    </div>
+  </div>
+   <div class="row"> 
+    <div class="col-sm-12">
+      <input formControlName="surname" type="text" class="form-control" placeholder="nazwisko">
+      <p *ngIf="!doctorForm.get('surname').valid && doctorForm.get('surname').dirty" class="error">To pole jest wymagane</p>
+    </div>
+   </div> 
+  <div class="row">
+    <div class="col-sm-12">
+      <input formControlName="spec" type="text" class="form-control" placeholder="specjalizacje (a, b, c)">
+      <p *ngIf="!doctorForm.get('spec').valid && doctorForm.get('spec').dirty" class="error">To pole jest wymagane</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <input formControlName="city" type="text" class="form-control" placeholder="miasta (a, b, c)">
+      <p *ngIf="!doctorForm.get('city').valid && doctorForm.get('city').dirty" class="error">To pole jest wymagane</p>
+    </div>
+  </div>
+    <button [disabled]="doctorForm.invalid" type="sumbit" class="btn btn-primary">Dodaj</button>
+    <button (click)="doctorForm.reset()" class="btn btn-danger">Wyczysc</button>
+</form>
+  <pre> doctor.Form.value | json ma wartosc: 
+    {{ doctorForm.value | json}}
+
+    walidacja name: {{ doctorForm.get('name').valid }}  
+    walidacja surname: {{ doctorForm.get('surname').valid }}  
+    surname.dirty?: {{ doctorForm.get('surname').dirty }}  
+    doctorForm.valid: {{ doctorForm.valid }}
+    doctorForm.invalid: {{ doctorForm.invalid }}
+    doctorForm.get('name').value: {{doctorForm.get('name').value}}
+  </pre>
+
+<hr>
 wejsciowe:
 <ul *ngFor="let imie of lista">
   <li>imie: {{ imie }}</li>

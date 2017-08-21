@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DoktorService } from '../../doktor.service';
 import { Doctor } from "../../admin/models/doctor";
 import { TestowyService } from '../testowy.service';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: 'testowy',
@@ -18,6 +19,7 @@ export class TestowyComponent implements OnInit {
   lista: string[] = ['Zenek', 'Adrian', 'Patryk', 'Filip', 'Damian'];
   getData: string;
   typSortowania: string = 'malejaco';
+  doctorForm: FormGroup;
 
   zmienSortowanie(): void {
     if (this.typSortowania == 'malejaco')
@@ -39,11 +41,23 @@ export class TestowyComponent implements OnInit {
     )
   }
 
-  constructor(private doktorService: DoktorService, private testowyService: TestowyService) {
+  buildDoctorForm() {
+    return this.formBuilder.group({
+      name: ['', [Validators.required]],
+      surname: ['', [Validators.required, Validators.minLength(3)]],
+      spec: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+    });
+  }
+
+  constructor(private doktorService: DoktorService, 
+              private testowyService: TestowyService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
     this.getDoctors();
+    this.doctorForm = this.buildDoctorForm();
   }
 
 }

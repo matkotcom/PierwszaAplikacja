@@ -8,11 +8,13 @@ import { TestowyComponent } from './testowy/testowy.component';
 import { ProbnyPipe } from './testowy/probny.pipe';
 import { SortujPipe } from './testowy/sortuj.pipe';
 import { SortujLekarzyPipe } from './testowy/sortuj-lekarzy.pipe';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   exports: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent],
   declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe],
