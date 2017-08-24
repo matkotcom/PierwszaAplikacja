@@ -3,6 +3,7 @@ import { DoktorService } from '../../doktor.service';
 import { Doctor } from "../../admin/models/doctor";
 import { TestowyService } from '../testowy.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'testowy',
@@ -327,8 +328,9 @@ export class TestowyComponent implements OnInit {
     // console.log(obj);
   }
 
-  zaktualizujDoktora() {
-    
+  goToDoktorDetails(lekarz: Doctor) {
+    // console.log(lekarz.id);
+    this.router.navigate(['test', lekarz.id]);
   }
 
   buildDoctorForm() {
@@ -343,7 +345,8 @@ export class TestowyComponent implements OnInit {
 
   constructor(private doktorService: DoktorService, 
               private testowyService: TestowyService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router) {
   }
 
   ngOnInit() {

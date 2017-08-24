@@ -42,7 +42,8 @@
       </thead>
       <tbody>
         <!-- <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">  -->
-        <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" [routerLink]="['/test', lekarz.id]">
+        <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" [routerLink]="['test', lekarz.id]"> -->
+        <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" (click)="goToDoktorDetails(lekarz)">
         <!-- spr, zmieniono linijke wyzej -->
         <td>{{ lekarz.id }} | angularIndex = {{ i }}</td> 
         <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td> 

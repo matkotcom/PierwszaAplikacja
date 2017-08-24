@@ -4,14 +4,36 @@
   </div>
 </my-header>
 
-<p>imie: {{ lekarz?.name }}</p>
-<p>nazwisko: {{ lekarz?.surname }}</p>
-<p>specjalizacje: {{ lekarz?.specs }}</p>
-<p>miasta: {{ lekarz?.cities }}</p>
-<p>id: {{ lekarz?.id }}</p>
+<hr>
+<button (click)="zaladujFormularz()" class="btn btn-primary">Zaladuj dane do formularza()</button>
 
-
-
-
-
-dodac wiecej danych, formularz do aktualizacji itd.!
+<hr>
+<form [formGroup]="doctorForm">
+  <div class="row">
+    <div class="col-sm-12">
+      <input [ngClass]="{'errorClass': !doctorForm.get('name').valid && doctorForm.get('name').dirty}" formControlName="name" type="text" class="form-control" placeholder="imie: Marcin">
+       <p *ngIf="!doctorForm.get('name').valid && doctorForm.get('name').dirty" class="error">To pole jest wymagane</p> 
+    </div>
+  </div>
+   <div class="row"> 
+    <div class="col-sm-12">
+      <input formControlName="surname" type="text" class="form-control" placeholder="nazwisko: Nowak">
+      <p *ngIf="!doctorForm.get('surname').valid && doctorForm.get('surname').dirty" class="error">To pole jest wymagane</p>
+    </div>
+   </div> 
+  <div class="row">
+    <div class="col-sm-12">
+      <input formControlName="specs" type="text" class="form-control" placeholder='specjalizacje: Okulista,Ortopeda,Laryngolog (bez spacji)'>
+      <p *ngIf="!doctorForm.get('specs').valid && doctorForm.get('specs').dirty" class="error">To pole jest wymagane</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <input formControlName="cities" type="text" class="form-control" placeholder='miasta: Wroclaw,Krakow (bez spacji)'>
+      <p *ngIf="!doctorForm.get('cities').valid && doctorForm.get('cities').dirty" class="error">To pole jest wymagane</p>
+    </div>
+  </div>
+    <button (click)="zaktualizujDoktora()" [disabled]="doctorForm.invalid" type="sumbit" class="btn btn-primary">Zaktualizuj dane</button>
+    <button (click)="doctorForm.reset()" class="btn btn-danger">Wyczysc</button>
+    <button (click)="losujDane()" class="btn btn-info">Losuj dane lekarza</button>
+</form>
