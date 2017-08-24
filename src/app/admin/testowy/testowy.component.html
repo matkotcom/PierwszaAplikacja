@@ -34,25 +34,29 @@
           <th>doktor id</th>
           <th>Imie</th>
           <th>Nazwisko </th>
-          <th>Specjalizacja</th>
+          <th>Specjalizacje</th>
+          <th>Miasta</th>
           <th>Sprawdź grafik</th>
           <th>Akcje</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">
-          <!-- spr, zmieniono linijke wyzej -->
-          <td>{{ lekarz.id }} | angularIndex = {{ i }}</td>
-          <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td>
-          <!-- spr, zmieniono linijke wyzej -->
-          <td>{{ lekarz.surname | uppercase}}</td>
-          <!-- spr, zmieniono linijke wyzej -->
-          <td>{{ lekarz.spec }}</td> 
-          <td> Tu bedzie button grafik </td>
-          <td>
-            <button class="btn">Edytuj</button>
-            <button (click)="usunLekarza(lekarz)" class="btn">Usun</button>
-          </td>
+        <!-- <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">  -->
+        <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" [routerLink]="['/test', lekarz.id]">
+        <!-- spr, zmieniono linijke wyzej -->
+        <td>{{ lekarz.id }} | angularIndex = {{ i }}</td> 
+        <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td> 
+        <!-- spr, zmieniono linijke wyzej -->
+        <td>{{ lekarz.surname | uppercase}}</td> 
+        <!-- spr, zmieniono linijke wyzej -->
+        <td>{{ lekarz.specs }}</td>  
+        <td>{{ lekarz.cities }}</td>    
+        <td> Tu bedzie button grafik </td>
+        <td>
+          <button class="btn">Edytuj</button>
+          <button (click)="usunDoktora(lekarz.id)" class="btn">Usun</button>
+          <button (click)="testFunc(lekarz)" class="btn">testFunc()</button>
+        </td>
         </tr>
       </tbody>
     </table>
@@ -63,6 +67,10 @@
   </div>
 </div>
 
+<hr>
+<button (click)=zaladujDoktorow()>Zaladuj doktorow</button>
+
+<hr>
 wartosc zmiennej "zmienna" = {{ zmienna }} <br>
 
 <button class="btn btn-primary" (click)="zmienSortowanie()">Zmien sortowanie (rosnaco/malejaco)</button>
@@ -71,40 +79,54 @@ wartosc zmiennej "zmienna" = {{ zmienna }} <br>
 <form [formGroup]="doctorForm">
   <div class="row">
     <div class="col-sm-12">
-      <input [ngClass]="{'errorClass': !doctorForm.get('name').valid && doctorForm.get('name').dirty}" formControlName="name" type="text" class="form-control" placeholder="imie">
+      <input [ngClass]="{'errorClass': !doctorForm.get('name').valid && doctorForm.get('name').dirty}" formControlName="name" type="text" class="form-control" placeholder="imie: Marcin">
        <p *ngIf="!doctorForm.get('name').valid && doctorForm.get('name').dirty" class="error">To pole jest wymagane</p> 
     </div>
   </div>
    <div class="row"> 
     <div class="col-sm-12">
-      <input formControlName="surname" type="text" class="form-control" placeholder="nazwisko">
+      <input formControlName="surname" type="text" class="form-control" placeholder="nazwisko: Nowak">
       <p *ngIf="!doctorForm.get('surname').valid && doctorForm.get('surname').dirty" class="error">To pole jest wymagane</p>
     </div>
    </div> 
   <div class="row">
     <div class="col-sm-12">
-      <input formControlName="spec" type="text" class="form-control" placeholder="specjalizacje (a, b, c)">
-      <p *ngIf="!doctorForm.get('spec').valid && doctorForm.get('spec').dirty" class="error">To pole jest wymagane</p>
+      <input formControlName="specs" type="text" class="form-control" placeholder='specjalizacje: Okulista,Ortopeda,Laryngolog (bez spacji)'>
+      <p *ngIf="!doctorForm.get('specs').valid && doctorForm.get('specs').dirty" class="error">To pole jest wymagane</p>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <input formControlName="city" type="text" class="form-control" placeholder="miasta (a, b, c)">
-      <p *ngIf="!doctorForm.get('city').valid && doctorForm.get('city').dirty" class="error">To pole jest wymagane</p>
+      <input formControlName="cities" type="text" class="form-control" placeholder='miasta: Wroclaw,Krakow (bez spacji)'>
+      <p *ngIf="!doctorForm.get('cities').valid && doctorForm.get('cities').dirty" class="error">To pole jest wymagane</p>
     </div>
   </div>
-    <button [disabled]="doctorForm.invalid" type="sumbit" class="btn btn-primary">Dodaj</button>
+    <button (click)="wyslijDoktora()" [disabled]="doctorForm.invalid" type="sumbit" class="btn btn-primary">Dodaj</button>
     <button (click)="doctorForm.reset()" class="btn btn-danger">Wyczysc</button>
+    <button (click)="losujDane()" class="btn btn-info">Losuj dane lekarza</button>
 </form>
   <pre> doctor.Form.value | json ma wartosc: 
-    {{ doctorForm.value | json}}
+    {{ doctorForm.value | json }}
+
+    doctor.Form.value ma wartosc: 
+    {{ doctorForm.value }}
 
     walidacja name: {{ doctorForm.get('name').valid }}  
     walidacja surname: {{ doctorForm.get('surname').valid }}  
     surname.dirty?: {{ doctorForm.get('surname').dirty }}  
     doctorForm.valid: {{ doctorForm.valid }}
     doctorForm.invalid: {{ doctorForm.invalid }}
-    doctorForm.get('name').value: {{doctorForm.get('name').value}}
+    doctorForm.get('name').value: {{ doctorForm.get('name').value }}
+  </pre>
+
+  <hr>
+  <pre>
+       Odpowiedz z serwera  
+    lekarzeOdpowiedzValue =
+     {{ lekarzeOdpowiedzValue }}
+
+    lekarzeOdpowiedzValue | json =
+     {{ lekarzeOdpowiedzValue | json }}
   </pre>
 
 <hr>
@@ -121,12 +143,30 @@ posortowane:
 
 <hr>
 <p>SERWER TEST</p>
-<button (click)=loadGetData()>Test GET</button>
-<p>Wynik: {{ getData }}</p>
+<button (click)=loadGetTime()>Test GET - loadGetTime() - date.jsontest.com</button>
+<p>Wynik: {{ getTime }}</p>
+<button (click)=loadGetData()>Test GET - loadGetData() - serwer lokalny /products</button>
+<pre>Wynik pre: {{ getDataJSON }}</pre>
+<pre>Wynik pre pipe: {{ getDataJSON | json }}</pre>
+
+<hr>
+<pre>Wynik pre: {{ getDataObj }}</pre>
+<pre>Wynik pre pipe: {{ getDataObj | json }}</pre>
 
 <hr>
 to do:
 <ul>
+  <pre>
+
+
+    zrob detail 1 doktora,
+    potem zrob aktualizacje doktora z serwera
+
+    ŹLE!! - zrobic przycisk do losowania danych lekarza a nie takie kombinacje!, wiele to wtedy uprosci
+    pobieranie danych z serwera lokalnego - dziala
+    dodac wysylanie danych (formularz), pozniej aktualizacje
+    moze dodac do local storage jakies info, ze uzytkownik jest adminem
+  </pre>
   <li>wskazowki Kaliny (inny sposob formularz, header zastanowic sie nad wygladem, do konstruktora dawac caly obiekt a nie pojedyncze wartosci)</li>
     admin:
       <li>wyswietlanie (imie, nazw, spec, miasto/a)</li>

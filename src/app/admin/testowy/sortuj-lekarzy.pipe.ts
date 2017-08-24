@@ -8,6 +8,12 @@ export class SortujLekarzyPipe implements PipeTransform {
 
   transform(listaLekarzy: Doctor[], typ: string): Doctor[] {
     // console.log("listaLekarzy = " + listaLekarzy);
+    if(!listaLekarzy) {
+      console.log("lista lekarzy jeszcze NIE zaladowana");
+      return null;
+    }
+    
+    console.log("lista lekarzy zaladowana!!!");
     return listaLekarzy.sort(function(a: Doctor, b: Doctor): number{
       a.surname.toLowerCase();
       b.surname.toLowerCase();

@@ -9,15 +9,18 @@ import { ProbnyPipe } from './testowy/probny.pipe';
 import { SortujPipe } from './testowy/sortuj.pipe';
 import { SortujLekarzyPipe } from './testowy/sortuj-lekarzy.pipe';
 import { ReactiveFormsModule } from "@angular/forms";
+import { TestowyDoctorDetailsComponent } from './testowy-doctor-details/testowy-doctor-details.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent],
-  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe],
+  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent],
   providers: [DoktorService] //spr linijka dodana, usun
 })
 export class AdminModule { }
