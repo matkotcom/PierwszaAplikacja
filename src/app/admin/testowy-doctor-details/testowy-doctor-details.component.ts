@@ -28,7 +28,6 @@ export class TestowyDoctorDetailsComponent implements OnInit {
     const id = +this.route.snapshot.params['id']; //pobieramy obecne id ze sciezki na ktorej jestesmy
     // console.log("snapshot.params: ");
     // console.log(this.route.snapshot.params); //to obiekt z kluczem id o wartosci jakiejs tam
-    this.lekarz = this.route.snapshot.data['doctor']
     this.testowyService.pobierzDoktoraZSerwera(id).subscribe(
       value => {
         this.lekarz = value;

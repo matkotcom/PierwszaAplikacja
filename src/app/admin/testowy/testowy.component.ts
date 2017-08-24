@@ -343,6 +343,10 @@ export class TestowyComponent implements OnInit {
     });
   }
 
+  pokazGrafik(lekarz: Doctor) {
+    this.router.navigate(['test/grafik', lekarz.id]);
+  }
+
   constructor(private doktorService: DoktorService, 
               private testowyService: TestowyService,
               private formBuilder: FormBuilder,

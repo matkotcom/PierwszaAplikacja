@@ -52,7 +52,10 @@
         <!-- spr, zmieniono linijke wyzej -->
         <td>{{ lekarz.specs }}</td>  
         <td>{{ lekarz.cities }}</td>    
-        <td> Tu bedzie button grafik </td>
+        <td>
+          Tu bedzie button grafik
+          <button (click)="pokazGrafik(lekarz)">Grafik</button>
+        </td>
         <td>
           <button class="btn">Edytuj</button>
           <button (click)="usunDoktora(lekarz.id)" class="btn">Usun</button>
@@ -158,24 +161,24 @@ posortowane:
 to do:
 <ul>
   <pre>
+  zrob detail 1 doktora - ok,
+  potem zrob aktualizacje doktora z serwera - ok
+  ŹLE! - zrobic przycisk do losowania danych lekarza a nie takie kombinacje!, wiele to wtedy uprosci - ok
+  pobieranie danych z serwera lokalnego - ok
+  dodac wysylanie danych (formularz), pozniej aktualizacje - ok
+  moze dodac do local storage jakies info, ze uzytkownik jest adminem - brak
 
+  wskazowki Kaliny (inny sposob formularz, header zastanowic sie nad wygladem, do konstruktora dawac caly obiekt a nie pojedyncze wartosci)
+  
+  admin:
+    wyswietlanie (imie, nazw, spec, miasto/a) - ok
+    sortowanie wyswietlania po nazwiskach - ok
+    usuwanie z listy - ok
+    usuwanie z listy (a zarazem z serwera) - ok
+    dodawanie lekarza (najpierw pod lista wyswietlania, pozniej inna zakladka) (na koncu dodac grafik ten co nizej) - brak grafiku, jutro zajac sie grafikiem (TestowyGrafik)!, zastanowic sie czy robic kolejna klase dla Grafiku i kolejny model w bazie, czy wepchac to do wlasnosci klasy Doctor, jak lepiej
+    edytowanie z listy -> zarzadzanie grafikiem (to przemyslec) (lista terminow: termin opisany przez dzien, godzina start, godzina koniec, zajety/wolny, jesli zajety to info o pacjencie) - brak grafiku
 
-    zrob detail 1 doktora,
-    potem zrob aktualizacje doktora z serwera
-
-    ŹLE!! - zrobic przycisk do losowania danych lekarza a nie takie kombinacje!, wiele to wtedy uprosci
-    pobieranie danych z serwera lokalnego - dziala
-    dodac wysylanie danych (formularz), pozniej aktualizacje
-    moze dodac do local storage jakies info, ze uzytkownik jest adminem
+  pacjent:
+    ...
   </pre>
-  <li>wskazowki Kaliny (inny sposob formularz, header zastanowic sie nad wygladem, do konstruktora dawac caly obiekt a nie pojedyncze wartosci)</li>
-    admin:
-      <li>wyswietlanie (imie, nazw, spec, miasto/a)</li>
-      <li>sortowanie wyswietlania po nazwiskach</li>
-      <li>usuwanie z listy</li>
-      <li>dodawanie lekarza (najpierw pod lista wyswietlania, pozniej inna zakladka) (na koncu dodac grafik ten co nizej)</li>
-      <li>edytowanie z listy -> zarzadzanie grafikiem (to przemyslec) (lista terminow: termin opisany przez dzien, godzina start, godzina koniec, zajety/wolny, jesli zajety to info o pacjencie)</li>
-      <hr>
-    pacjent:
-      <li>...</li>
 </ul>
