@@ -5,7 +5,7 @@
 <hr>
 <div class="row">
   <div class="col-sm-12">
-     <table *ngIf="grafikTabSerwer.length > 0" class="table table-striped my-table"> 
+     <table *ngIf="terminyTab.length > 0" class="table table-striped my-table"> 
       <thead>
         <tr>
           <th>Id</th>
@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let grafik of grafikTabSerwer"> 
+        <tr *ngFor="let grafik of terminyTab"> 
           <td>{{ grafik.id }}</td>
           <td>{{ grafik.data }}</td>
           <td>{{ grafik.start }}</td>
@@ -30,8 +30,8 @@
       </tbody>
     </table>
     
-    <div *ngIf="grafikTabSerwer.length == 0">
-      <p>Brak grafiku w bazie</p>
+    <div *ngIf="terminyTab.length == 0">
+      <p>Brak terminow w bazie</p>
     </div>
   </div>
 </div>

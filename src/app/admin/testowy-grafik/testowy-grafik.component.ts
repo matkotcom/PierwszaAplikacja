@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestowyService } from "app/admin/testowy.service";
 import { ActivatedRoute } from "@angular/router";
 import { Doctor } from "app/admin/models/doctor";
-import { Grafik } from "app/admin/models/grafik";
+import { Termin } from "app/admin/models/termin";
 
 @Component({
   selector: 'testowy-grafik',
@@ -12,9 +12,9 @@ import { Grafik } from "app/admin/models/grafik";
 })
 export class TestowyGrafikComponent implements OnInit {
   lekarz: Doctor;
-  grafikTabSerwer: Grafik[] = [];
+  terminyTab: Termin[] = [];
 
-  ladujGrafik() {
+  ladujTerminy() {
     const id = +this.route.snapshot.params['id']; //pobieram id z url
     //dokoncz
 
@@ -25,7 +25,7 @@ export class TestowyGrafikComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.ladujGrafik();
+    this.ladujTerminy();
   }
 
 }

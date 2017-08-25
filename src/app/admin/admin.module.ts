@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { TestowyDoctorDetailsComponent } from './testowy-doctor-details/testowy-doctor-details.component';
 import { RouterModule } from '@angular/router';
 import { TestowyGrafikComponent } from './testowy-grafik/testowy-grafik.component';
+import { TestowyFormularzComponent } from './testowy-formularz/testowy-formularz.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { TestowyGrafikComponent } from './testowy-grafik/testowy-grafik.componen
     RouterModule
   ],
   exports: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent],
-  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent, TestowyGrafikComponent],
+  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent, TestowyGrafikComponent, TestowyFormularzComponent],
   providers: [DoktorService] //spr linijka dodana, usun
 })
 export class AdminModule { }

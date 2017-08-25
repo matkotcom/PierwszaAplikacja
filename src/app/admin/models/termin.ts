@@ -1,4 +1,4 @@
-export class Grafik {
+export class Termin {
     data: string
     start: string;
     stop: string;
@@ -17,6 +17,6 @@ export class Grafik {
         this.powod = powod;
         this.idLekarza = idlekarza;
         this.id = id;
-        console.log("Wywolano konstruktor klasy Grafik");
+        console.log("Wywolano konstruktor klasy Termin");
     }
 }
