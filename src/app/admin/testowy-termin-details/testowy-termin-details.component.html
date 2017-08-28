@@ -1,0 +1,49 @@
+<my-header>
+  <div headerContent>
+    Dane terminu
+  </div>
+</my-header>
+
+<hr>
+<button (click)="zaladujFormularz()" class="btn btn-primary">Zaladuj dane do formularza()</button>
+
+<div class="container">
+  <hr>
+  <form [formGroup]="terminForm">
+    <div class="row">
+      <label>Data</label>
+      <input formControlName="data" type="date" class="form-control" placeholder="Data">
+    </div>
+    <div class="row">
+      <label>Godzina rozpoczecia</label>
+      <input formControlName="start" type="time" class="form-control" placeholder="Start">
+    </div>
+    <div class="row">
+      <label>Godzina zakonczenia</label>
+      <input formControlName="stop" type="time" class="form-control" placeholder="Stop">
+    </div>
+    <div class="row"> 
+      <div class="checkbox">
+        <label>
+          Termin wolny?
+          <input formControlName="wolny" type="checkbox" class="form-control">
+        </label>
+      </div> 
+    </div>
+    <div class="row" *ngIf="terminForm.get('wolny').value == false">
+      <label>Pacjent</label>
+      <input formControlName="pacjent" type="text" class="form-control" placeholder="Pacjent">
+    </div>
+    <div class="row" *ngIf="terminForm.get('wolny').value == false">
+      <label>Powod</label>
+      <textarea formControlName="powod" class="form-control" placeholder="Powod" rows="5"></textarea>
+    </div>
+    <!-- <div class="row">
+      <label>Id Lekarza</label>
+      <input formControlName="idLekarza" type="text" class="form-control" placeholder="Id Lekarza">
+    </div> -->
+    <button (click)="zaktualizujTermin()" [disabled]="terminForm.invalid" type="submit" class="btn btn-primary">Zaktualizuj termin</button>
+    <button (click)="terminForm.reset()" class="btn btn-danger">Wyczysc</button>
+    <button (click)="losujDane()" class="btn btn-info">Losuj dane terminu</button>
+  </form>
+</div>

@@ -66,4 +66,12 @@ export class TestowyService {
     return this.http.delete(`${this.apiURLTerminy}/${id}`).map(res => res.json());
   }
 
+  pobierzTerminZSerwera(id: Number): Observable<Termin> {
+    return this.http.get(`${this.apiURLTerminy}/${id}`).map(res => res.json());
+  }
+
+  zaktualizujTerminNaSerwerze(id: Number, dane: Termin): Observable<Termin> {
+    return this.http.put(`${this.apiURLTerminy}/${id}`, dane).map(res => res.json());
+  }
+
 }

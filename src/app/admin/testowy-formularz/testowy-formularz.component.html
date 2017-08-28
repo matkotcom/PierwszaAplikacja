@@ -27,7 +27,7 @@
         <td>{{ termin.idLekarza }}</td>
         <td>{{ termin.id }}</td>
         <td>
-          <button class="btn">Edytuj</button>
+          <button (click)="goToTerminDetails(termin)" class="btn">Edytuj</button>
           <button (click)="usunTermin(termin.id)" class="btn btn-primary">Usun termin</button>
         </td>
       </tr>

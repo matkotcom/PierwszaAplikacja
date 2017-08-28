@@ -13,6 +13,7 @@ import { TestowyDoctorDetailsComponent } from './testowy-doctor-details/testowy-
 import { RouterModule } from '@angular/router';
 import { TestowyGrafikComponent } from './testowy-grafik/testowy-grafik.component';
 import { TestowyFormularzComponent } from './testowy-formularz/testowy-formularz.component';
+import { TestowyTerminDetailsComponent } from './testowy-termin-details/testowy-termin-details.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { TestowyFormularzComponent } from './testowy-formularz/testowy-formularz
     RouterModule
   ],
   exports: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent],
-  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent, TestowyGrafikComponent, TestowyFormularzComponent],
+  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent, TestowyGrafikComponent, TestowyFormularzComponent, TestowyTerminDetailsComponent],
   providers: [DoktorService] //spr linijka dodana, usun
 })
 export class AdminModule { }

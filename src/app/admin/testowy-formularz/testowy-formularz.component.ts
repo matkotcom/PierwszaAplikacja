@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Doctor } from "app/admin/models/doctor";
 import { Termin } from "app/admin/models/termin";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TestowyService } from "app/admin/testowy.service";
 
 @Component({
@@ -232,14 +232,41 @@ export class TestowyFormularzComponent implements OnInit {
     )
   }
 
+  zmienDostepnoscTerminu() {
+    console.log("Test wywolany");
+    if (this.terminForm.get('wolny').value === false) {
+      console.log("wolny = false");
+      this.terminForm.get('pacjent').setValidators([Validators.required]);
+    }
+    else if (this.terminForm.get('wolny').value === true) {
+      console.log("wolny = true");
+      //spr tu sie zastanwoic jak to zrobic
+      let obj = this.terminForm.value;
+      obj['pacjent'] = null;
+      obj['powod'] = null;
+      this.terminForm.setValue(obj);
+    }
+
+    this.terminForm.updateValueAndValidity();
+  }
+
+  goToTerminDetails(termin: Termin) {
+    this.router.navigate(['test/formularz/edytuj', termin.id])
+  }
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private testowyService: TestowyService) { }
+              private testowyService: TestowyService,
+              private router: Router) { }
 
   ngOnInit() {
     // this.tabInit();
     this.pobierzTerminy();
     this.terminForm = this.buildTerminForm();
+  }
+
+  ngDoCheck() {
+    this.zmienDostepnoscTerminu();
   }
 
 }
