@@ -11,7 +11,6 @@ import { SortujLekarzyPipe } from './testowy/sortuj-lekarzy.pipe';
 import { ReactiveFormsModule } from "@angular/forms";
 import { TestowyDoctorDetailsComponent } from './testowy-doctor-details/testowy-doctor-details.component';
 import { RouterModule } from '@angular/router';
-import { TestowyGrafikComponent } from './testowy-grafik/testowy-grafik.component';
 import { TestowyFormularzComponent } from './testowy-formularz/testowy-formularz.component';
 import { TestowyTerminDetailsComponent } from './testowy-termin-details/testowy-termin-details.component';
 
@@ -23,7 +22,7 @@ import { TestowyTerminDetailsComponent } from './testowy-termin-details/testowy-
     RouterModule
   ],
   exports: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent],
-  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent, TestowyGrafikComponent, TestowyFormularzComponent, TestowyTerminDetailsComponent],
+  declarations: [DoctorsListComponent, AddNewDoctorComponent, TestowyComponent, ProbnyPipe, SortujPipe, SortujLekarzyPipe, TestowyDoctorDetailsComponent, TestowyFormularzComponent, TestowyTerminDetailsComponent],
   providers: [DoktorService] //spr linijka dodana, usun
 })
 export class AdminModule { }

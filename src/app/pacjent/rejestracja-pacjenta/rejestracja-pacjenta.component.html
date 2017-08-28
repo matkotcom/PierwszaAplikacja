@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <button (click)="test()" class="btn btn-danger">Test()</button>
+  <button class="btn btn-success" (click)="utworzTabeleTerminowLekarzy()">Zaladuj dane</button>
+
+  <h1>Tabela lekarzy</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr (click)="schowajLekarzy()">
+        <th>Imie</th>
+        <th>Nazwisko</th>
+        <th>Specjalizacje</th>
+        <th>Miasta</th>
+        <th>Id Lekarza</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="lekarzeTab.length > 0">
+      <tr *ngFor="let lekarz of lekarzeTab">
+        <td>{{ lekarz.name }}</td>
+        <td>{{ lekarz.surname }}</td>
+        <td>{{ lekarz.specs }}</td>
+        <td>{{ lekarz.cities }}</td>
+        <td>{{ lekarz.id }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>Tabela terminow</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr (click)="schowajTerminy()">
+        <th>Data</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Wolny</th>
+        <th>Pacjent</th>
+        <th>Powod</th>
+        <th>Id Lekarza</th>
+        <th>Id</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="terminyTab.length > 0">
+      <tr *ngFor="let termin of terminyTab">
+        <td>{{ termin.data }}</td>
+        <td>{{ termin.start }}</td>
+        <td>{{ termin.stop }}</td>
+        <td>{{ termin.wolny }}</td>
+        <td>{{ termin.pacjent }}</td>
+        <td>{{ termin.powod }}</td>
+        <td>{{ termin.idLekarza }}</td>
+        <td>{{ termin.id }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>Tabela terminow z lekarzami (polaczona)</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr (click)="schowajTerminyzLekarzami()">
+        <th>Data</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Wolny</th>
+        <th>Id</th>
+        <th>Id Lekarza</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Specs</th>
+        <th>Cities</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="terminyZLekarzamiTab.length > 0">
+      <tr *ngFor="let terminZLekarzem of terminyZLekarzamiTab">
+        <td>{{ terminZLekarzem.data }}</td>
+        <td>{{ terminZLekarzem.start }}</td>
+        <td>{{ terminZLekarzem.stop }}</td>
+        <td>{{ terminZLekarzem.wolny }}</td>
+        <td>{{ terminZLekarzem.id }}</td>
+        <td>{{ terminZLekarzem.idLekarza }}</td>
+        <td>{{ terminZLekarzem.name }}</td>
+        <td>{{ terminZLekarzem.surname }}</td>
+        <td>{{ terminZLekarzem.specs }}</td>
+        <td>{{ terminZLekarzem.cities }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

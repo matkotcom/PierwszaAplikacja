@@ -11,6 +11,8 @@ import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing-module';
 import { AdminRoutingModule } from './admin/admin-routing-module';
+import { PacjentModule } from "app/pacjent/pacjent.module";
+import { PacjentRoutingModule } from "app/pacjent/pacjent-routing-module";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AdminRoutingModule } from './admin/admin-routing-module';
     AdminModule,
     CoreModule,
     AppRoutingModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    PacjentModule,
+    PacjentRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -110,7 +110,7 @@ export class TestowyFormularzComponent implements OnInit {
       wolny: [true, [Validators.required]],
       pacjent: [''],
       powod: [''],
-      idLekarza: ['', [Validators.required]]
+      idLekarza: [''] //spr, usunalem walidator bo przycisk byl nieaktywny
     });
   }
 
@@ -197,6 +197,7 @@ export class TestowyFormularzComponent implements OnInit {
       let obj = this.terminForm.value;
       obj['pacjent'] = null;
       obj['powod'] = null;
+      obj['idLekarza'] = this.idLekarzaURL;
       this.terminForm.setValue(obj);
     }
 
@@ -244,6 +245,7 @@ export class TestowyFormularzComponent implements OnInit {
       let obj = this.terminForm.value;
       obj['pacjent'] = null;
       obj['powod'] = null;
+      obj['idLekarza'] = this.idLekarzaURL;
       this.terminForm.setValue(obj);
     }
 
