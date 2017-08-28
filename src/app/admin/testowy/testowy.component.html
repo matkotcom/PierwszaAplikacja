@@ -43,7 +43,8 @@
       <tbody>
         <!-- <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">  -->
         <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" [routerLink]="['test', lekarz.id]"> -->
-        <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" (click)="goToDoktorDetails(lekarz)">
+        <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor"> -->
+        <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index">
         <!-- spr, zmieniono linijke wyzej -->
         <td>{{ lekarz.id }} | angularIndex = {{ i }}</td> 
         <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td> 
@@ -54,11 +55,12 @@
         <td>{{ lekarz.cities }}</td>    
         <td>
           Tu bedzie button grafik
-          <button (click)="pokazGrafik(lekarz)">Grafik</button>
+          <!-- <button (click)="pokazGrafik(lekarz)">Grafik</button> -->
+          <button [routerLink]="['formularz', lekarz.id]" class="btn btn-primary">Grafik</button>
         </td>
         <td>
-          <button class="btn">Edytuj</button>
-          <button (click)="usunDoktora(lekarz.id)" class="btn">Usun</button>
+          <button (click)="goToDoktorDetails(lekarz)" class="btn btn-primary">Edytuj</button>
+          <button (click)="usunDoktora(lekarz.id)" class="btn btn-primary">Usun</button>
           <button (click)="testFunc(lekarz)" class="btn">testFunc()</button>
         </td>
         </tr>

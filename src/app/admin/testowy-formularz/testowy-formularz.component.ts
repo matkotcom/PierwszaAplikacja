@@ -2,17 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Doctor } from "app/admin/models/doctor";
 import { Termin } from "app/admin/models/termin";
+import { ActivatedRoute } from "@angular/router";
+import { TestowyService } from "app/admin/testowy.service";
 
 @Component({
   selector: 'testowy-formularz',
   templateUrl: './testowy-formularz.component.html',
-  styleUrls: ['./testowy-formularz.component.less']
+  styleUrls: ['./testowy-formularz.component.less'],
+  providers: [TestowyService]
 })
 export class TestowyFormularzComponent implements OnInit {
 
   terminForm: FormGroup;
   lekarz: Doctor;
   terminyTab: Termin[] = [];
+  terminyTabSerwer: Termin[] = [];
+  idLekarzaURL = +this.route.snapshot.params['id'];
 
   tabInit() {
     this.terminyTab[0] = {
@@ -86,13 +91,13 @@ export class TestowyFormularzComponent implements OnInit {
       obj['powod'] = powod;
     }
 
-    let idLekarza = Math.floor(Math.random() * 20);
+    // let idLekarza = Math.floor(Math.random() * 20);
 
     obj['data'] = data;
     obj['start'] = start;
     obj['stop'] = stop;
     obj['wolny'] = wolny;
-    obj['idLekarza'] = idLekarza;
+    obj['idLekarza'] = this.idLekarzaURL;
 
     this.terminForm.setValue(obj);
   }
@@ -108,6 +113,7 @@ export class TestowyFormularzComponent implements OnInit {
       idLekarza: ['', [Validators.required]]
     });
   }
+
   dodajTermin() {
     let obj = this.terminForm.value;
     
@@ -173,10 +179,66 @@ export class TestowyFormularzComponent implements OnInit {
     // console.log("**********");
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  pobierzTerminy() {
+    const id = +this.route.snapshot.params['id'];
+    this.testowyService.pobierzTerminyDoktoraZSerwera(id).subscribe(
+      value => {
+        this.terminyTabSerwer = value;
+        console.log("value = ");
+        console.log(value);
+      },
+      error => console.log(error),
+      () => console.log(`Pobieranie terminow lekarza o id ${id} z serwera zakonczone`)
+    )
+  }
+
+  wyslijTermin() {
+    if (this.terminForm.get('wolny').value === true) {
+      let obj = this.terminForm.value;
+      obj['pacjent'] = null;
+      obj['powod'] = null;
+      this.terminForm.setValue(obj);
+    }
+
+    this.testowyService.wyslijTerminNaSerwer(this.terminForm.value).subscribe(
+      value => {
+        console.log("ta funkcja jest wywolywana jesli metoda http zostanie poprawnie obsluzona");
+        console.log("Dane wyslane poprawnie!");
+        console.log("odpowiedz z serwera (value) zmapowana i json() = ");
+        console.log(value);
+        this.terminForm.reset(); //resetowanie formularza po poprawnym wyslaniu terminu
+        this.pobierzTerminy(); //po wyslaniu doktora do bazy odswiezamy liste doktorow
+      },
+      error => {
+        console.log(error);
+      },
+      () => console.log("Wysylanie terminu do serwera zakonczone")
+    )
+  }
+
+  usunTermin(id: Number) {
+    return this.testowyService.usunTerminZSerwera(id).subscribe(
+      value => {
+        if (value['count'] == 1)
+        {
+          console.log(`Usunieto termin o id = ${id}\nIlosc usunietych terminow = ${value['count']}`);
+          this.pobierzTerminy(); //odwiezenie listy terminow
+        }
+      },
+      error => {
+        console.log(error);
+      },
+      () => console.log("Termin zostal usuniety, metoda http zostala przetworzona")
+    )
+  }
+
+  constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private testowyService: TestowyService) { }
 
   ngOnInit() {
-    this.tabInit();
+    // this.tabInit();
+    this.pobierzTerminy();
     this.terminForm = this.buildTerminForm();
   }
 

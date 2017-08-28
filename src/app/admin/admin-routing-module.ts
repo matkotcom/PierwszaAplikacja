@@ -12,7 +12,8 @@ const ADMIN_ROUTES : Route[] = [
     { path: 'test', component: TestowyComponent },
     { path: 'test/:id', component: TestowyDoctorDetailsComponent },
     { path: 'test/grafik/:id', component: TestowyGrafikComponent},
-    { path: 'formularz', component: TestowyFormularzComponent}
+    // { path: 'formularz', component: TestowyFormularzComponent}
+    { path: 'test/formularz/:id', component: TestowyFormularzComponent}
 ]
 
 @NgModule({
