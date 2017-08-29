@@ -1,5 +1,4 @@
 <div class="container">
-
   <!-- <table *ngIf="terminyTab.length > 0" class="table table-striped"> -->
   <table *ngIf="terminyTabSerwer.length > 0" class="table table-striped">
     <thead>
@@ -10,6 +9,7 @@
         <th>Termin wolny?</th>
         <th>Pacjent</th>
         <th>Powod</th>
+        <th>Miasto</th>
         <th>idLekarza</th>
         <th>id</th>
         <th>Akcje</th>
@@ -24,6 +24,7 @@
         <td>{{ termin.wolny }}</td>
         <td>{{ termin.pacjent }}</td>
         <td>{{ termin.powod }}</td>
+        <td>{{ termin.miasto }}</td>
         <td>{{ termin.idLekarza }}</td>
         <td>{{ termin.id }}</td>
         <td>
@@ -39,9 +40,17 @@
     <p *ngIf="terminyTabSerwer.length == 0">Brak terminow w bazie!</p>
   </div>
 
+<button (click)="pobierzDaneDoFormularza()" class="btn btn-danger">Zaladuj miasta (potem naprawie)</button>
+
   <h1>Dodaj nowy termin</h1>
   <form [formGroup]="terminForm">
 
+    <div class="row">
+      <label>Miasto</label>
+        <select class="form-control" formControlName="miasto"> 
+          <option *ngFor="let miasto of dostepneMiasta">{{ miasto }}</option>
+        </select>
+    </div>
     <div class="row">
       <label>Data</label>
       <input formControlName="data" type="date" class="form-control" placeholder="Data">
@@ -58,7 +67,7 @@
       <div class="checkbox">
         <label>
           Termin wolny?
-          <input formControlName="wolny" type="checkbox" class="form-control">
+            <input (click)="walidacjaPolaPacjent()" formControlName="wolny" type="checkbox" class="form-control">  
         </label>
       </div> 
     </div>
@@ -74,12 +83,27 @@
       <label>Id Lekarza</label>
       <input formControlName="idLekarza" type="text" class="form-control" placeholder="Id Lekarza">
     </div> -->
-    <button (click)="wyslijTermin()" [disabled]="terminForm.invalid" type="submit" class="btn btn-primary">Wyslij termin</button>
+    <!-- <button (click)="wyslijTermin()" [disabled]="terminForm.invalid" type="submit" class="btn btn-primary">Wyslij termin</button> -->
+    <button (click)="wyslijTermin()" [disabled]="formularzPacjentInvalid || terminForm.invalid" type="submit" class="btn btn-primary">Wyslij termin</button>
     <button (click)="terminForm.reset()" class="btn btn-danger">Wyczysc</button>
     <button (click)="losujDane()" class="btn btn-info">Losuj dane terminu</button>
   </form>
 
+<pre>
+  DODANY:
+  valid formularz?:
+  {{ terminForm.valid }}
+adfvodmn
+  <button (click)="test()" class="btn btn-danger">Test()</button>
 
+
+
+
+
+
+
+
+</pre>
 
 
   <pre>

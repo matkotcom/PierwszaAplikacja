@@ -7,8 +7,9 @@ export class Termin {
     powod: string;
     idLekarza: number;
     id: number;
+    miasto;
 
-    constructor(data: string, start: string, stop: string, wolny: boolean, pacjent: string, powod: string, idlekarza:number, id: number) {
+    constructor(data: string, start: string, stop: string, wolny: boolean, pacjent: string, powod: string, idlekarza:number, id: number, miasto: string) {
         this.data = data;
         this.start = start;
         this.stop = stop;
@@ -17,6 +18,7 @@ export class Termin {
         this.powod = powod;
         this.idLekarza = idlekarza;
         this.id = id;
+        this.miasto = miasto;
         console.log("Wywolano konstruktor klasy Termin");
     }
 }

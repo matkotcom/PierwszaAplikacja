@@ -1,61 +1,77 @@
 <div class="container-fluid">
+  <hr>
   <button (click)="test()" class="btn btn-danger">Test()</button>
-  <button class="btn btn-success" (click)="utworzTabeleTerminowLekarzy()">Zaladuj dane</button>
+  <button class="btn btn-success" (click)="utworzTabeleWolnychTerminowLekarzy()">Zaladuj wolne terminy</button>
+  <button class="btn btn-success" (click)="zbudujWartosciFormularza()">Zaladuj formularz</button>
+  <hr>
+ 
+  <form *ngIf="dostepneMiasta.length > 0" [formGroup]="searchForm">
+    <div class="form-group">
+      <label>Specjalizacja</label>
+      <select class="form-control" formControlName="spec"> 
+        <option *ngFor="let specjalizacja of dostepneSpecjalizacje">{{ specjalizacja }}</option>
+      </select>
 
-  <h1>Tabela lekarzy</h1>
-  <table class="table table-striped">
-    <thead>
-      <tr (click)="schowajLekarzy()">
-        <th>Imie</th>
-        <th>Nazwisko</th>
-        <th>Specjalizacje</th>
-        <th>Miasta</th>
-        <th>Id Lekarza</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="lekarzeTab.length > 0">
-      <tr *ngFor="let lekarz of lekarzeTab">
-        <td>{{ lekarz.name }}</td>
-        <td>{{ lekarz.surname }}</td>
-        <td>{{ lekarz.specs }}</td>
-        <td>{{ lekarz.cities }}</td>
-        <td>{{ lekarz.id }}</td>
-      </tr>
-    </tbody>
-  </table>
+      <label>Miasta</label>
+        <div class="checkbox">
+          <label *ngFor="let miasto of dostepneMiasta">
+            <input name="miasto" type="checkbox" formControlName="cities"> {{ miasto }}
+          </label>
+        </div>
 
-  <h1>Tabela terminow</h1>
-  <table class="table table-striped">
-    <thead>
-      <tr (click)="schowajTerminy()">
-        <th>Data</th>
-        <th>Start</th>
-        <th>Stop</th>
-        <th>Wolny</th>
-        <th>Pacjent</th>
-        <th>Powod</th>
-        <th>Id Lekarza</th>
-        <th>Id</th>
-      </tr>
-    </thead>
-    <tbody *ngIf="terminyTab.length > 0">
-      <tr *ngFor="let termin of terminyTab">
-        <td>{{ termin.data }}</td>
-        <td>{{ termin.start }}</td>
-        <td>{{ termin.stop }}</td>
-        <td>{{ termin.wolny }}</td>
-        <td>{{ termin.pacjent }}</td>
-        <td>{{ termin.powod }}</td>
-        <td>{{ termin.idLekarza }}</td>
-        <td>{{ termin.id }}</td>
-      </tr>
-    </tbody>
-  </table>
+      <label>Data od</label>
+      <input type="date" class="form-control" formControlName="dataStart">
 
-  <h1>Tabela terminow z lekarzami (polaczona)</h1>
-  <table class="table table-striped">
+      <label>Data do</label>
+      <input type="date" class="form-control" formControlName="dataStop">
+    </div>
+    <button (click)="szukajTerminu()" class="btn btn-primary">Szukaj wolnego terminu</button>
+  </form>
+
+
+  <pre *ngIf="dostepneMiasta.length > 0">
+
+    spec: {{ searchForm.get('spec').value }}
+    cities: {{ searchForm.get('cities').value }}
+    dataStart: {{ searchForm.get('dataStart').value }}
+    dataStop {{ searchForm.get('dataStop').value }} 
+  </pre>
+
+
+         <!-- <form [formGroup]="searchForm2">
+    <input formControlName="spec"> 
+     <input formControlName="cities">  
+    <input formControlName="dataStart">
+    <input formControlName="dataStop">   
+
+
+     <label>Miasta</label>
+        <div class="checkbox">
+          <label *ngFor="let miasto of dostepneMiasta">
+            <input type="checkbox" formControlName=`${miasto}`> {{ miasto }}
+          </label>
+        </div> 
+
+
+
+  </form>     -->
+
+  <!-- <pre>
+    spec: {{ searchForm2.get('spec').value }}
+    cities: {{ searchForm2.get('cities').value }}
+    dataStart: {{ searchForm2.get('dataStart').value }}
+    dataStop {{ searchForm2.get('dataStop').value }} 
+  </pre> -->
+
+
+
+
+
+  <hr>
+  <h1>Wolne terminy (po wyszukiwaniu)</h1>
+  <table class="table table-striped" *ngIf="wolneTerminyTab.length > 0">
     <thead>
-      <tr (click)="schowajTerminyzLekarzami()">
+      <tr>
         <th>Data</th>
         <th>Start</th>
         <th>Stop</th>
@@ -65,10 +81,48 @@
         <th>Name</th>
         <th>Surname</th>
         <th>Specs</th>
-        <th>Cities</th>
+        <th>Miasto</th>
+        <th>Akcje</th>
       </tr>
     </thead>
-    <tbody *ngIf="terminyZLekarzamiTab.length > 0">
+    <tbody>
+      <tr *ngFor="let terminZLekarzem of wolneTerminyTab">
+        <td>{{ terminZLekarzem.data }}</td>
+        <td>{{ terminZLekarzem.start }}</td>
+        <td>{{ terminZLekarzem.stop }}</td>
+        <td>{{ terminZLekarzem.wolny }}</td>
+        <td>{{ terminZLekarzem.id }}</td>
+        <td>{{ terminZLekarzem.idLekarza }}</td>
+        <td>{{ terminZLekarzem.name }}</td>
+        <td>{{ terminZLekarzem.surname }}</td>
+        <td>{{ terminZLekarzem.specs }}</td>
+        <td>{{ terminZLekarzem.miasto }}</td>
+        <td>
+          <button class="btn btn-success">Zapisz na wizytę</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+  <h1>Tabela wolnych terminow z lekarzami (polaczona)</h1>
+  <table class="table table-striped" *ngIf="terminyZLekarzamiTab.length > 0">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Wolny</th>
+        <th>Id</th>
+        <th>Id Lekarza</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Specs</th>
+          <!-- <th>Cities</th>  spr, tak bylo, zle  -->
+        <th>Miasto</th>  
+      </tr>
+    </thead>
+    <tbody>
       <tr *ngFor="let terminZLekarzem of terminyZLekarzamiTab">
         <td>{{ terminZLekarzem.data }}</td>
         <td>{{ terminZLekarzem.start }}</td>
@@ -79,7 +133,60 @@
         <td>{{ terminZLekarzem.name }}</td>
         <td>{{ terminZLekarzem.surname }}</td>
         <td>{{ terminZLekarzem.specs }}</td>
-        <td>{{ terminZLekarzem.cities }}</td>
+         <!-- <td>{{ terminZLekarzem.cities }}</td> spr, tak bylo, zle -->
+        <td>{{ terminZLekarzem.miasto }}</td> 
+      </tr>
+    </tbody>
+  </table>
+
+  <h1 (click)="schowajLekarzy()">Tabela lekarzy (click - schowaj/wyswietl)</h1>
+  <table class="table table-striped" *ngIf="lekarzeTab.length > 0">
+    <thead>
+      <tr>
+        <th>Imie</th>
+        <th>Nazwisko</th>
+        <th>Specjalizacje</th>
+        <th>Miasta</th>
+        <th>Id Lekarza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lekarz of lekarzeTab">
+        <td>{{ lekarz.name }}</td>
+        <td>{{ lekarz.surname }}</td>
+        <td>{{ lekarz.specs }}</td>
+        <td>{{ lekarz.cities }}</td>
+        <td>{{ lekarz.id }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1 (click)="schowajTerminy()">Tabela terminow (click - schowaj/wyswietl)</h1>
+  <table class="table table-striped" *ngIf="terminyTab.length > 0">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Wolny</th>
+        <th>Pacjent</th>
+        <th>Powod</th>
+        <th>Id Lekarza</th>
+        <th>Id</th>
+        <th>Miasto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let termin of terminyTab">
+        <td>{{ termin.data }}</td>
+        <td>{{ termin.start }}</td>
+        <td>{{ termin.stop }}</td>
+        <td>{{ termin.wolny }}</td>
+        <td>{{ termin.pacjent }}</td>
+        <td>{{ termin.powod }}</td>
+        <td>{{ termin.idLekarza }}</td>
+        <td>{{ termin.id }}</td>
+        <td>{{ termin.miasto }}</td>
       </tr>
     </tbody>
   </table>

@@ -18,6 +18,9 @@ export class TestowyFormularzComponent implements OnInit {
   terminyTab: Termin[] = [];
   terminyTabSerwer: Termin[] = [];
   idLekarzaURL = +this.route.snapshot.params['id'];
+  formularzPacjentInvalid: boolean = false;
+  dostepneMiasta: String[] = [];
+  daneLekarza: Doctor;
 
   tabInit() {
     this.terminyTab[0] = {
@@ -28,7 +31,8 @@ export class TestowyFormularzComponent implements OnInit {
       pacjent: '',
       powod: '',
       idLekarza: 5,
-      id: 1
+      id: 1,
+      miasto: "Wroclaw"
     };
 
     this.terminyTab[1] = {
@@ -39,7 +43,8 @@ export class TestowyFormularzComponent implements OnInit {
       pacjent: 'Grzegorz Nowak',
       powod: 'Ból zęba',
       idLekarza: 10,
-      id: 2
+      id: 2,
+      miasto: "Warszawa"
     }
   }
 
@@ -98,12 +103,14 @@ export class TestowyFormularzComponent implements OnInit {
     obj['stop'] = stop;
     obj['wolny'] = wolny;
     obj['idLekarza'] = this.idLekarzaURL;
+    obj['miasto'] = this.dostepneMiasta[Math.floor(Math.random() * this.dostepneMiasta.length)];
 
     this.terminForm.setValue(obj);
   }
 
   buildTerminForm() {
     return this.formBuilder.group({
+      miasto: ['', [Validators.required]],
       data: ['', [Validators.required]],
       start: ['', [Validators.required]],
       stop: ['', [Validators.required]],
@@ -192,6 +199,27 @@ export class TestowyFormularzComponent implements OnInit {
     )
   }
 
+  pobierzDaneLekarza() {
+    const id = +this.route.snapshot.params['id'];
+    this.testowyService.pobierzDoktoraZSerwera(id).subscribe(
+      value => {
+        this.daneLekarza = value;
+        console.log("value = ");
+        console.log(value);
+      },
+      error => console.log(error),
+      () => console.log(`Pobieranie danych lekarza o id ${id} z serwera zakonczone`)
+    )
+  }
+
+  pobierzDaneDoFormularza() {
+    for (let miasto of this.daneLekarza.cities) {
+        if (this.dostepneMiasta.indexOf(miasto) === -1) {
+          this.dostepneMiasta.push(miasto);
+        }
+      }
+  }
+
   wyslijTermin() {
     if (this.terminForm.get('wolny').value === true) {
       let obj = this.terminForm.value;
@@ -233,23 +261,54 @@ export class TestowyFormularzComponent implements OnInit {
     )
   }
 
-  zmienDostepnoscTerminu() {
-    console.log("Test wywolany");
-    if (this.terminForm.get('wolny').value === false) {
-      console.log("wolny = false");
-      this.terminForm.get('pacjent').setValidators([Validators.required]);
-    }
-    else if (this.terminForm.get('wolny').value === true) {
-      console.log("wolny = true");
-      //spr tu sie zastanwoic jak to zrobic
-      let obj = this.terminForm.value;
-      obj['pacjent'] = null;
-      obj['powod'] = null;
-      obj['idLekarza'] = this.idLekarzaURL;
-      this.terminForm.setValue(obj);
-    }
+  test() {
+    console.log("Wywolano funkcje test()");
+    if (this.formularzPacjentInvalid)
+      this.formularzPacjentInvalid = false;
+    else
+      this.formularzPacjentInvalid = true;
+    console.log("PO this.formularzPacjentInvalid = ");
+    console.log(this.formularzPacjentInvalid);
+  }
 
-    this.terminForm.updateValueAndValidity();
+  walidacjaPolaPacjent() { //wywolywane gdy klikne checkboxa
+    if (this.terminForm.get('wolny').value === true) //odznaczam pole
+      {
+        console.log("checkbox wolny = true");
+        this.formularzPacjentInvalid = true;
+      }
+    else if (this.terminForm.get('wolny').value === false) //zaznaczam pole
+      {
+        console.log("checkbox wolny = false");
+        this.formularzPacjentInvalid = false;
+
+        let obj = this.terminForm.value;
+        obj['wolny'] = true;
+        obj['pacjent'] = null;
+        obj['powod'] = null;
+        obj['idLekarza'] = this.idLekarzaURL;
+        this.terminForm.setValue(obj);
+        console.log(this.terminForm.value);
+      }
+  }
+
+  //gdy termin jest zajety to musze cos wpisac w polu pacjenta, aby button byl dostepny
+  sprawdzInputPacjenta() { 
+    if (this.terminForm.get('pacjent').value != '') {
+
+      console.log("Input pacjent = ");
+      console.log(this.terminForm.get('pacjent').value);
+
+
+      console.log("W input pacjent cos wpisano");
+      this.formularzPacjentInvalid = false;
+    }
+    else 
+      {
+        console.log("Input pacjent jest pusty");
+        if (this.terminForm.get('wolny').value === false)
+          this.formularzPacjentInvalid = true;
+      }
   }
 
   goToTerminDetails(termin: Termin) {
@@ -264,11 +323,12 @@ export class TestowyFormularzComponent implements OnInit {
   ngOnInit() {
     // this.tabInit();
     this.pobierzTerminy();
+    this.pobierzDaneLekarza();
     this.terminForm = this.buildTerminForm();
   }
 
   ngDoCheck() {
-    this.zmienDostepnoscTerminu();
+    this.sprawdzInputPacjenta();
   }
 
 }
