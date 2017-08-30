@@ -354,7 +354,7 @@ export class TestowyComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.zaladujDoktorow();
+    this.zaladujDoktorow();
     this.getDoctors();
     this.doctorForm = this.buildDoctorForm();
   }

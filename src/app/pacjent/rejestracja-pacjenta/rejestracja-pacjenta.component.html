@@ -4,7 +4,8 @@
   <button class="btn btn-success" (click)="utworzTabeleWolnychTerminowLekarzy()">Zaladuj wolne terminy</button>
   <button class="btn btn-success" (click)="zbudujWartosciFormularza()">Zaladuj formularz</button>
   <hr>
- 
+  <hr>
+  <h1 class="text-center">Wyszukiwanie wolnego terminu</h1>
   <form *ngIf="dostepneMiasta.length > 0" [formGroup]="searchForm">
     <div class="form-group">
       <label>Specjalizacja</label>
@@ -14,8 +15,8 @@
 
       <label>Miasta</label>
         <div class="checkbox">
-          <label *ngFor="let miasto of dostepneMiasta">
-            <input name="miasto" type="checkbox" formControlName="cities"> {{ miasto }}
+          <label *ngFor="let miasto of dostepneMiasta; let i = index">
+            <input name="miasto" type="checkbox" formControlName="cities"> {{ miasto }} numer {{ i }}
           </label>
         </div>
 
@@ -25,7 +26,7 @@
       <label>Data do</label>
       <input type="date" class="form-control" formControlName="dataStop">
     </div>
-    <button (click)="szukajTerminu()" class="btn btn-primary">Szukaj wolnego terminu</button>
+    <button (click)="szukajTerminu()" class="btn btn-primary" [disabled]="searchForm.invalid">Szukaj wolnego terminu</button>
   </form>
 
 
@@ -33,6 +34,7 @@
 
     spec: {{ searchForm.get('spec').value }}
     cities: {{ searchForm.get('cities').value }}
+    cities: {{ searchForm.get('cities') }}
     dataStart: {{ searchForm.get('dataStart').value }}
     dataStop {{ searchForm.get('dataStop').value }} 
   </pre>
@@ -67,8 +69,11 @@
 
 
 
+
   <hr>
-  <h1>Wolne terminy (po wyszukiwaniu)</h1>
+  <h1 *ngIf="wolneTerminyTab.length > 0">
+    Wolne terminy (po wyszukiwaniu)
+  </h1>
   <table class="table table-striped" *ngIf="wolneTerminyTab.length > 0">
     <thead>
       <tr>
@@ -86,7 +91,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let terminZLekarzem of wolneTerminyTab">
+      <tr *ngFor="let terminZLekarzem of wolneTerminyTab | sortujTerminy">
         <td>{{ terminZLekarzem.data }}</td>
         <td>{{ terminZLekarzem.start }}</td>
         <td>{{ terminZLekarzem.stop }}</td>
@@ -98,15 +103,21 @@
         <td>{{ terminZLekarzem.specs }}</td>
         <td>{{ terminZLekarzem.miasto }}</td>
         <td>
-          <button class="btn btn-success">Zapisz na wizytę</button>
+          <button (click)="zapisNaWizyte(terminZLekarzem.id)" class="btn btn-success">Zapis na wizytę</button>
         </td>
       </tr>
     </tbody>
   </table>
 
+
   <hr>
-  <h1>Tabela wolnych terminow z lekarzami (polaczona)</h1>
-  <table class="table table-striped" *ngIf="terminyZLekarzamiTab.length > 0">
+  <h1 class="text-center">
+    Tabela wolnych terminow z lekarzami (polaczona)
+    <button (click)="showTerminyZLekarzamiTab = !showTerminyZLekarzamiTab" class="btn btn-info">
+      {{ showTerminyZLekarzamiTab === true ? 'ukryj' : 'pokaz' }}
+    </button>
+  </h1>
+  <table class="table table-striped" *ngIf="terminyZLekarzamiTab.length > 0 && showTerminyZLekarzamiTab === true">
     <thead>
       <tr>
         <th>Data</th>
@@ -123,7 +134,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let terminZLekarzem of terminyZLekarzamiTab">
+      <tr *ngFor="let terminZLekarzem of terminyZLekarzamiTab | sortujTerminy">
         <td>{{ terminZLekarzem.data }}</td>
         <td>{{ terminZLekarzem.start }}</td>
         <td>{{ terminZLekarzem.stop }}</td>
@@ -139,8 +150,11 @@
     </tbody>
   </table>
 
-  <h1 (click)="schowajLekarzy()">Tabela lekarzy (click - schowaj/wyswietl)</h1>
-  <table class="table table-striped" *ngIf="lekarzeTab.length > 0">
+  <h1 class="text-center">
+    Tabela lekarzy
+    <button (click)="showLekarzeTab = !showLekarzeTab" class="btn btn-info">{{ showLekarzeTab === true ? 'ukryj' : 'pokaz' }}</button>
+  </h1>
+  <table class="table table-striped" *ngIf="lekarzeTab.length > 0 && showLekarzeTab === true">
     <thead>
       <tr>
         <th>Imie</th>
@@ -161,8 +175,11 @@
     </tbody>
   </table>
 
-  <h1 (click)="schowajTerminy()">Tabela terminow (click - schowaj/wyswietl)</h1>
-  <table class="table table-striped" *ngIf="terminyTab.length > 0">
+  <h1 class="text-center">
+    Tabela terminow
+    <button (click)="showTerminyTab = !showTerminyTab" class="btn btn-info">{{ showTerminyTab === true ? 'ukryj' : 'pokaz' }}</button>
+  </h1>
+  <table class="table table-striped" *ngIf="terminyTab.length > 0 && showTerminyTab === true">
     <thead>
       <tr>
         <th>Data</th>

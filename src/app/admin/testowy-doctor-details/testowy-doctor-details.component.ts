@@ -31,6 +31,7 @@ export class TestowyDoctorDetailsComponent implements OnInit {
     this.testowyService.pobierzDoktoraZSerwera(id).subscribe(
       value => {
         this.lekarz = value;
+        this.zaladujFormularz(); //spr, czy to dawac tutaj? tak powinno sie robic? wczesniej mialem przycisk do zaladujFormularz(), zeby chwile po pobraniu danych moc go kliknac. tu czy moze w () => {tu} ?
       },
       error => {
         console.log(error);

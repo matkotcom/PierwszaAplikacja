@@ -5,6 +5,8 @@ import { PacjentService } from "app/pacjent/pacjent.service";
 import { TerminLekarza } from "app/admin/models/terminLekarza";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FormArray, FormControl } from '@angular/forms';
+import { Router } from "@angular/router";
+import { TerminZLekarzem } from "app/admin/models/terminZLekarzem";
 
 interface Miasto {
   nazwa: string;
@@ -21,49 +23,56 @@ export class RejestracjaPacjentaComponent implements OnInit {
 
   lekarzeTab: Doctor[] = [];
   terminyTab: Termin[] = [];
-  terminyZLekarzamiTab: any[] = [];
+  terminyZLekarzamiTab: TerminZLekarzem[] = [];
+  
+  searchForm: FormGroup;
   dostepneSpecjalizacje: String[] = ["---"];
   dostepneMiasta: String[] = [];
-  searchForm: FormGroup;
+  
   wolneTerminyTab: any[] = [];
+  
+  showTerminyTab: boolean = true;
+  showLekarzeTab: boolean = true;
+  showTerminyZLekarzamiTab: boolean = true;
 
 
 
   pobierzLekarzy() {
     this.pacjentService.pobierzLekarzy().subscribe(
-      value => this.lekarzeTab = value,
-      error => console.log(error),
-      () => console.log('Przetworzono zapytanie http, metoda pobierzLekarzy()')
+      value => {
+        this.lekarzeTab = value
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log('Przetworzono zapytanie http, metoda pobierzLekarzy()')
+      }
     )
-  }
-
-  schowajLekarzy() {
-    if (this.lekarzeTab.length > 0)
-      this.lekarzeTab = [];
-    else 
-      this.pobierzLekarzy();
   }
 
   pobierzTerminy() {
     this.pacjentService.pobierzTerminy().subscribe(
-      value => this.terminyTab = value,
-      error => console.log(error),
-      () => console.log('Przetworzono zapytanie http, metoda pobierzTerminy()')
+      value => {
+        this.terminyTab = value
+        if (this.lekarzeTab.length > 0) {
+          this.utworzTabeleWolnychTerminowLekarzy(); //dodane
+        }
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log('Przetworzono zapytanie http, metoda pobierzTerminy()')
+      }
     )
-  }
-
-  schowajTerminy() {
-    if (this.terminyTab.length > 0)
-      this.terminyTab = [];
-    else
-        this.pobierzTerminy();
   }
   
   utworzTabeleWolnychTerminowLekarzy() {
     for (let termin of this.terminyTab) {
       //buduje liste wolnych terminow
       if (termin.wolny === true) {
-        let terminZLekarzem = {};
+        let terminZLekarzem: TerminZLekarzem = new TerminZLekarzem();
         let idLekarza = termin.idLekarza;
 
         for (let lekarz of this.lekarzeTab) {
@@ -90,13 +99,22 @@ export class RejestracjaPacjentaComponent implements OnInit {
         // console.log(this.terminyZLekarzamiTab);
       }
     }
+    this.zbudujWartosciFormularza(); //dodane
   }
 
-  schowajTerminyzLekarzami() {
-    if (this.terminyZLekarzamiTab.length > 0)
-      this.terminyZLekarzamiTab = [];
-    else
-        this.utworzTabeleWolnychTerminowLekarzy();
+  buildSearchForm() {
+    return this.formBuilder.group({
+      //do testow takie:
+      spec: ['Ortopeda', [Validators.required, Validators.pattern(/[^-]/g)]],
+      cities: ['null', [Validators.required]],
+      dataStart: ['2017-08-27', [Validators.required]],
+      dataStop: ['2017-08-29', [Validators.required]]
+      //poprawne takie:
+      // spec: [null, [Validators.required]],
+      // cities: [null, [Validators.required]],
+      // dataStart: [null, [Validators.required]],
+      // dataStop: [null, [Validators.required]]
+    })
   }
 
   zbudujWartosciFormularza() {
@@ -123,25 +141,10 @@ export class RejestracjaPacjentaComponent implements OnInit {
     console.log(this.dostepneMiasta);
   }
 
-  buildSearchForm() {
-    return this.formBuilder.group({
-      //do testow takie:
-      spec: ['Ortopeda', [Validators.required]],
-      cities: [null, [Validators.required]],
-      dataStart: ['2017-08-27', [Validators.required]],
-      dataStop: ['2017-08-29', [Validators.required]]
-      //poprawne takie:
-      // spec: [null, [Validators.required]],
-      // cities: [null, [Validators.required]],
-      // dataStart: [null, [Validators.required]],
-      // dataStop: [null, [Validators.required]]
-    })
-  }
-
   szukajTerminu() {
     this.wolneTerminyTab = [];
     let wybranaSpecjalizacja = this.searchForm.get('spec').value;
-    let wybraneMiasta = ["Opole", "Krakow", "Katowice", "Pacanowo"];
+    let wybraneMiasta = ["Opole", "Krakow", "Katowice", "Pacanowo"]; //spr, to na sztywno na razie, potem zmienic
     let wybranaDataStart = this.searchForm.get('dataStart').value;
     let wybranaDataStop = this.searchForm.get('dataStop').value;
 
@@ -167,6 +170,10 @@ export class RejestracjaPacjentaComponent implements OnInit {
     }
   }
 
+  zapisNaWizyte(idTerminu: Number) {
+    this.router.navigate(['pacjent/rejestracja', idTerminu]);
+  }
+
 
 
 
@@ -186,12 +193,14 @@ export class RejestracjaPacjentaComponent implements OnInit {
     // }
 
     // this.utworzTabeleWolnychTerminowLekarzy();
-    this.utworzTabeleWolnychTerminowLekarzy();
-    this.zbudujWartosciFormularza();
+    // this.utworzTabeleWolnychTerminowLekarzy();
+    // this.zbudujWartosciFormularza();
+    console.log(this.searchForm.value);
   }
 
   constructor(private pacjentService: PacjentService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit() {
     this.searchForm = this.buildSearchForm();

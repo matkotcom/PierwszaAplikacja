@@ -1,3 +1,46 @@
-<p>
-  zapis-na-wizyte works!
-</p>
+<div class="container" *ngIf="termin != undefined && lekarz != undefined">
+  <h1 class="text-center">Zapisujesz sie na termin:</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Wolny</th>
+        <th>Id</th>
+        <th>Id Lekarza</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Specs</th>
+        <th>Miasto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ termin.data }}</td>
+        <td>{{ termin.start }}</td>
+        <td>{{ termin.stop }}</td>
+        <td>{{ termin.wolny }}</td>
+        <td>{{ termin.id }}</td>
+        <td>{{ termin.idLekarza }}</td>
+        <td>{{ lekarz.name }}</td>
+        <td>{{ lekarz.surname }}</td>
+        <td>{{ lekarz.specs }}</td>
+        <td>{{ termin.miasto }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form [formGroup]="zapisForm">
+    <div class="form-group">
+      <textarea formControlName="powod" class="form-control" rows="5" placeholder="Powod wizyty..."></textarea>
+    </div>
+    <button (click)="zapiszNaWizyte()" class="btn btn-success">Zapisz</button>
+    <button (click)="anulujZapisywanie()" class="btn btn-danger">Anuluj</button>
+  </form>
+
+</div>
+
+<div *ngIf="termin == undefined || lekarz == undefined" class="container alert alert-danger text-">
+    Ops... Cos poszlo nie tak
+</div>

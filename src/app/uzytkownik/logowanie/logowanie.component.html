@@ -1,0 +1,18 @@
+<div class="container">
+
+  <h1>Logowanie</h1>
+  <form [formGroup]=loginForm>
+    <div class="form-group">
+      <input formControlName="login" class="form-control" placeholder="login">
+      <input formControlName="password" class="form-control" placeholder="password">
+      <button (click)="zalogujUzytkownika()" class="btn btn-primary">Zaloguj sie</button>
+      <button (click)="zarejestrujNavigate()" class="btn">Przejdz do strony rejestracji</button>
+    </div>
+  </form>
+
+</div>
+ <pre>
+  login: {{ this.loginForm.get('login').value }}
+  password: {{ this.loginForm.get('password').value }}
+  value: {{ this.loginForm.value }}
+ </pre>  

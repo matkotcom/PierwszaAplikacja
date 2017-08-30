@@ -19,7 +19,7 @@ export class TestowyFormularzComponent implements OnInit {
   terminyTabSerwer: Termin[] = [];
   idLekarzaURL = +this.route.snapshot.params['id'];
   formularzPacjentInvalid: boolean = false;
-  dostepneMiasta: String[] = [];
+  dostepneMiasta: String[] = ["---"];
   daneLekarza: Doctor;
 
   tabInit() {
@@ -110,7 +110,7 @@ export class TestowyFormularzComponent implements OnInit {
 
   buildTerminForm() {
     return this.formBuilder.group({
-      miasto: ['', [Validators.required]],
+      miasto: ['', [Validators.required, Validators.pattern(new RegExp("[^-]", "g"))]],
       data: ['', [Validators.required]],
       start: ['', [Validators.required]],
       stop: ['', [Validators.required]],
@@ -206,6 +206,7 @@ export class TestowyFormularzComponent implements OnInit {
         this.daneLekarza = value;
         console.log("value = ");
         console.log(value);
+        this.pobierzDaneDoFormularza();
       },
       error => console.log(error),
       () => console.log(`Pobieranie danych lekarza o id ${id} z serwera zakonczone`)

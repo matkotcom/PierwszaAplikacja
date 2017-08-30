@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing-module';
 import { AdminRoutingModule } from './admin/admin-routing-module';
 import { PacjentModule } from "app/pacjent/pacjent.module";
 import { PacjentRoutingModule } from "app/pacjent/pacjent-routing-module";
+import { UzytkownikModule } from "app/uzytkownik/uzytkownik.module";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PacjentRoutingModule } from "app/pacjent/pacjent-routing-module";
     AppRoutingModule,
     AdminRoutingModule,
     PacjentModule,
-    PacjentRoutingModule
+    PacjentRoutingModule,
+    UzytkownikModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { TestowyService } from "app/admin/testowy.service";
 import { ActivatedRoute, Router } from "@angular/router"; //dzieki temu serwisowi mozemy dostac sie do sciezki na ktorej jestesmy obecnie
 import { Termin } from "app/admin/models/termin";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Doctor } from "app/admin/models/doctor";
 
 @Component({
   selector: 'testowy-termin-details',
@@ -14,9 +15,13 @@ export class TestowyTerminDetailsComponent implements OnInit {
 
   termin: Termin;
   terminForm: FormGroup;
+  dostepneMiasta: String[] = [];
+  daneLekarza: Doctor;
 
   buildTerminForm() {
     return this.formBuilder.group({
+      // miasto: ['', [Validators.required, Validators.pattern(/[^-]/g)]], //mialem to poczatkowo, ale pozniej zmienilem [selected]="miasto === termin.miasto" w templatce i od razu zaznacza to miasto, ktore potrzeba, wiec ta linijka jest zbedna, bo usunalem --- z this.dostepneMiasta
+      miasto: ['', [Validators.required]],
       data: ['', [Validators.required]],
       start: ['', [Validators.required]],
       stop: ['', [Validators.required]],
@@ -35,6 +40,7 @@ export class TestowyTerminDetailsComponent implements OnInit {
     this.testowyService.pobierzTerminZSerwera(id).subscribe(
       value => {
         this.termin = value;
+        this.pobierzDaneLekarza(); // dopisane
       },
       error => {
         console.log(error);
@@ -69,6 +75,29 @@ export class TestowyTerminDetailsComponent implements OnInit {
       this.router.navigate([`test/formularz/${this.termin.idLekarza}`]);
   }
 
+  pobierzDaneLekarza() {
+    const id = this.termin.idLekarza;
+    this.testowyService.pobierzDoktoraZSerwera(id).subscribe(
+      value => {
+        this.daneLekarza = value;
+        console.log("value = ");
+        console.log(value);
+        this.pobierzDaneDoFormularza();
+      },
+      error => console.log(error),
+      () => console.log(`Pobieranie danych lekarza o id ${id} z serwera zakonczone`)
+    )
+  }
+
+  pobierzDaneDoFormularza() {
+    for (let miasto of this.daneLekarza.cities) {
+        if (this.dostepneMiasta.indexOf(miasto) === -1) {
+          this.dostepneMiasta.push(miasto);
+        }
+      }
+      this.zaladujFormularz();
+  }
+
   zaladujFormularz() {
     console.log("this.termin = ");
     console.log(this.termin);
@@ -84,6 +113,9 @@ export class TestowyTerminDetailsComponent implements OnInit {
     obj['pacjent'] = this.termin.pacjent;
     obj['powod'] = this.termin.powod;
     obj['idLekarza'] = this.termin.idLekarza;
+    obj['miasto'] = this.termin.miasto;
+    console.log("Jestem tutaj");
+    console.log(this.termin.miasto);
     this.terminForm.setValue(obj);
   }
 
@@ -94,6 +126,7 @@ export class TestowyTerminDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.ladujTermin();
+    // this.pobierzDaneLekarza();
     this.terminForm = this.buildTerminForm();
   }
 

@@ -5,11 +5,17 @@
 </my-header>
 
 <hr>
-<button (click)="zaladujFormularz()" class="btn btn-primary">Zaladuj dane do formularza()</button>
+<button (click)="pobierzDaneLekarza()" class="btn btn-danger">Zaladuj dane do formularza (potem naprawie)</button>
 
 <div class="container">
   <hr>
   <form [formGroup]="terminForm">
+    <div class="row">
+      <label>Miasto</label>
+        <select class="form-control" formControlName="miasto"> 
+          <option [selected]="miasto === termin.miasto" *ngFor="let miasto of dostepneMiasta">{{ miasto }}</option>
+        </select>
+    </div>
     <div class="row">
       <label>Data</label>
       <input formControlName="data" type="date" class="form-control" placeholder="Data">
@@ -47,3 +53,7 @@
     <button (click)="losujDane()" class="btn btn-info">Losuj dane terminu</button>
   </form>
 </div>
+<pre>
+  miasto: {{ terminForm.get('miasto').value }}
+  data: {{ terminForm.get('data').value }}
+</pre>

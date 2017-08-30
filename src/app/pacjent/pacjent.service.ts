@@ -20,4 +20,16 @@ export class PacjentService {
     return this.http.get(this.apiURLTerminy).map(res => res.json());
   }
 
+  pobierzTermin(id: Number): Observable<Termin> {
+    return this.http.get(`${this.apiURLTerminy}/${id}`).map(res => res.json());
+  }
+
+  pobierzLekarza(id: Number): Observable<Doctor> {
+    return this.http.get(`${this.apiURLLekarze}/${id}`).map(res => res.json());
+  }
+
+  zapiszPacjenta(id: Number, dane: any): Observable<Termin> {
+    return this.http.patch(`${this.apiURLTerminy}/${id}`, dane).map(res => res.json());
+  }
+
 }
