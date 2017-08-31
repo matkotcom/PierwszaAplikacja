@@ -1,4 +1,7 @@
 <div class="container-fluid">
+
+
+
   <hr>
   <button (click)="test()" class="btn btn-danger">Test()</button>
   <button class="btn btn-success" (click)="utworzTabeleWolnychTerminowLekarzy()">Zaladuj wolne terminy</button>
@@ -6,7 +9,7 @@
   <hr>
   <hr>
   <h1 class="text-center">Wyszukiwanie wolnego terminu</h1>
-  <form *ngIf="dostepneMiasta.length > 0" [formGroup]="searchForm">
+   <form *ngIf="dostepneMiasta.length > 0" [formGroup]="searchForm"> 
     <div class="form-group">
       <label>Specjalizacja</label>
       <select class="form-control" formControlName="spec"> 
@@ -14,9 +17,9 @@
       </select>
 
       <label>Miasta</label>
-        <div class="checkbox">
-          <label *ngFor="let miasto of dostepneMiasta; let i = index">
-            <input name="miasto" type="checkbox" formControlName="cities"> {{ miasto }} numer {{ i }}
+        <div class="checkbox" [formGroup]="searchForm.get('cities')">
+          <label *ngFor="let miasto of dostepneMiasta">
+            <input type="checkbox" formControlName={{miasto}}> {{ miasto }}
           </label>
         </div>
 
@@ -29,41 +32,15 @@
     <button (click)="szukajTerminu()" class="btn btn-primary" [disabled]="searchForm.invalid">Szukaj wolnego terminu</button>
   </form>
 
-
-  <pre *ngIf="dostepneMiasta.length > 0">
-
-    spec: {{ searchForm.get('spec').value }}
-    cities: {{ searchForm.get('cities').value }}
-    cities: {{ searchForm.get('cities') }}
-    dataStart: {{ searchForm.get('dataStart').value }}
-    dataStop {{ searchForm.get('dataStop').value }} 
-  </pre>
-
-
-         <!-- <form [formGroup]="searchForm2">
-    <input formControlName="spec"> 
-     <input formControlName="cities">  
-    <input formControlName="dataStart">
-    <input formControlName="dataStop">   
-
-
-     <label>Miasta</label>
-        <div class="checkbox">
-          <label *ngFor="let miasto of dostepneMiasta">
-            <input type="checkbox" formControlName=`${miasto}`> {{ miasto }}
-          </label>
-        </div> 
+   <pre>
+    spec: {{ searchForm?.get('spec').value }}  
+    cities. wroclaw: {{ searchForm?.get('cities').get('Wroclaw').value }}  
+    dataStart: {{ searchForm?.get('dataStart').value }}  
+    dataStop {{ searchForm?.get('dataStop').value }}  
+  </pre>    
 
 
 
-  </form>     -->
-
-  <!-- <pre>
-    spec: {{ searchForm2.get('spec').value }}
-    cities: {{ searchForm2.get('cities').value }}
-    dataStart: {{ searchForm2.get('dataStart').value }}
-    dataStop {{ searchForm2.get('dataStop').value }} 
-  </pre> -->
 
 
 

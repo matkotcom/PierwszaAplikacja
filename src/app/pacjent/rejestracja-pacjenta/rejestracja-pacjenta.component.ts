@@ -4,7 +4,7 @@ import { Termin } from "app/admin/models/termin";
 import { PacjentService } from "app/pacjent/pacjent.service";
 import { TerminLekarza } from "app/admin/models/terminLekarza";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from "@angular/router";
 import { TerminZLekarzem } from "app/admin/models/terminZLekarzem";
 
@@ -35,7 +35,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
   showLekarzeTab: boolean = true;
   showTerminyZLekarzamiTab: boolean = true;
 
-
+  tempDostepneMiasta = ["Wroclaw", "Warszawa", "Krakow", "Lublin", "Gdansk"];
 
   pobierzLekarzy() {
     this.pacjentService.pobierzLekarzy().subscribe(
@@ -57,7 +57,9 @@ export class RejestracjaPacjentaComponent implements OnInit {
         this.terminyTab = value
         if (this.lekarzeTab.length > 0) {
           this.utworzTabeleWolnychTerminowLekarzy(); //dodane
+          this.zbudujWartosciFormularza(); //dodane
         }
+        this.buildSearchForm(); //dodane
       },
       error => {
         console.log(error)
@@ -99,22 +101,32 @@ export class RejestracjaPacjentaComponent implements OnInit {
         // console.log(this.terminyZLekarzamiTab);
       }
     }
-    this.zbudujWartosciFormularza(); //dodane
+  }
+
+  walidacja() {
+    //spr, dokonczyc
+    // https://angular.io/guide/form-validation
   }
 
   buildSearchForm() {
-    return this.formBuilder.group({
-      //do testow takie:
-      spec: ['Ortopeda', [Validators.required, Validators.pattern(/[^-]/g)]],
-      cities: ['null', [Validators.required]],
-      dataStart: ['2017-08-27', [Validators.required]],
-      dataStop: ['2017-08-29', [Validators.required]]
-      //poprawne takie:
-      // spec: [null, [Validators.required]],
-      // cities: [null, [Validators.required]],
-      // dataStart: [null, [Validators.required]],
-      // dataStop: [null, [Validators.required]]
-    })
+    let obj = {};
+    for (let x of this.dostepneMiasta) {
+      // console.log(x);
+      // console.log("21903821903");
+      obj[`${x}`] = new FormControl(false);
+    }
+
+    this.searchForm = new FormGroup({
+      spec: new FormControl('Ortopeda', [Validators.required, Validators.pattern(/[^-]/g)]),
+      cities: new FormGroup(obj),
+      dataStart: new FormControl('2017-08-27', [Validators.required]),
+      dataStop: new FormControl('2017-08-29', [Validators.required])
+    });
+  //     //do testow takie:
+  //     spec: ['Ortopeda', [Validators.required, Validators.pattern(/[^-]/g)]],
+  //     cities: ['null', [Validators.required]],
+  //     dataStart: ['2017-08-27', [Validators.required]],
+  //     dataStop: ['2017-08-29', [Validators.required]]
   }
 
   zbudujWartosciFormularza() {
@@ -137,6 +149,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
         }
       }
     }
+    // this.buildSearchForm();
     console.log(this.dostepneSpecjalizacje);
     console.log(this.dostepneMiasta);
   }
@@ -144,7 +157,16 @@ export class RejestracjaPacjentaComponent implements OnInit {
   szukajTerminu() {
     this.wolneTerminyTab = [];
     let wybranaSpecjalizacja = this.searchForm.get('spec').value;
-    let wybraneMiasta = ["Opole", "Krakow", "Katowice", "Pacanowo"]; //spr, to na sztywno na razie, potem zmienic
+
+    let wybraneMiasta = [];
+    for (let miasto in this.searchForm.get('cities').value) {
+      if (this.searchForm.get('cities').value[miasto] === true) {
+        wybraneMiasta.push(miasto);
+      }
+    }
+    // console.log("wybrane miasta:");
+    // console.log(wybraneMiasta);
+    // let wybraneMiasta = ["Opole", "Krakow", "Katowice"]; //spr, to na sztywno na razie, potem zmienic
     let wybranaDataStart = this.searchForm.get('dataStart').value;
     let wybranaDataStop = this.searchForm.get('dataStop').value;
 
@@ -174,9 +196,6 @@ export class RejestracjaPacjentaComponent implements OnInit {
     this.router.navigate(['pacjent/rejestracja', idTerminu]);
   }
 
-
-
-
   test() {
     // console.log("this.lekarzeTab = ");
     // console.log(this.lekarzeTab);
@@ -203,7 +222,6 @@ export class RejestracjaPacjentaComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.searchForm = this.buildSearchForm();
     this.pobierzLekarzy();
     this.pobierzTerminy();
   }

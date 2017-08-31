@@ -1,0 +1,79 @@
+underline-input {
+  * {
+    box-sizing: border-box;
+  }
+  position: relative;
+  margin-bottom: 23px;
+  margin-top: 22px;
+  display: inline-block;
+  width: 100%;
+  font-size: 1.07rem;
+  border-bottom: 1px solid $control-base;
+  label {
+    font-weight: normal;
+    font-size: 1.07rem;
+    position: absolute;
+    pointer-events: none;
+    color: $secondary-text;
+    top: 2px;
+    left: 5px;
+    line-height: 1.4;
+    transition: all 0.2s ease;
+  }
+  label.focused.filled {
+    color: $control-primary-dark;
+  }
+  textarea {
+    margin-bottom: -3px;
+  }
+  &.filled label {
+    top: -15px;
+    left: 5px;
+    font-size: 0.8em;
+  }
+  .input {
+    padding: 2px 4px 3px 4px;
+    width: 100%;
+    border: none;
+    outline: none;
+    height: auto;
+    font-size: 1.07rem;
+  }
+  &:before,
+  &:after {
+    content: '';
+    height: 5px;
+    width: 1px;
+    position: absolute;
+    background-color: $control-base;
+    bottom: 0;
+  }
+  &:before {
+    left: 0;
+  }
+  &:after {
+    right: 0;
+  }
+  &.focused {
+    color: $control-primary-dark;
+    border-color: $control-primary-dark;
+    label {
+      color: $control-primary-dark;
+    }
+  }
+  &.focused:after,
+  &.focused:before {
+    background-color: $control-primary-dark;
+  }
+  &.ng-invalid.ng-touched {
+    border-color: $error;
+  }
+  &.ng-invalid.ng-touched:after,
+  &.ng-invalid.ng-touched:before {
+    background-color: $error !important;
+  }
+  input:disabled,
+  textarea:disabled {
+    background-color: transparent;
+  }
+}

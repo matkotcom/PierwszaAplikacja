@@ -4,11 +4,13 @@ import { RejestracjaPacjentaComponent } from './rejestracja-pacjenta/rejestracja
 import { ReactiveFormsModule } from "@angular/forms";
 import { ZapisNaWizyteComponent } from './zapis-na-wizyte/zapis-na-wizyte.component';
 import { SortujTerminyPipe } from './rejestracja-pacjenta/sortuj-terminy.pipe';
+import { SharedModule } from "app/shared/shared.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [RejestracjaPacjentaComponent, ZapisNaWizyteComponent, SortujTerminyPipe]
 })

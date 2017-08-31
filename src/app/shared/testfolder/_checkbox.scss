@@ -1,0 +1,60 @@
+$checkbox-size: 16px;
+checkbox {
+  display: inline-block;
+  position: relative;
+  * {
+    box-sizing: content-box !important;
+  }
+  &:not([readonly]):not([disabled]) {
+    cursor: pointer;
+  }
+  .checkbox {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    &.accent .border.is-checked {
+      background: $control-accent;
+      border-color: $control-accent;
+    }
+    &.base .border.is-checked {
+      background: $control-base;
+      border-color: $control-base;
+    }
+    &.warn .border.is-checked {
+      background: $warning;
+      border-color: $warning;
+    }
+  }
+  .checkbox-text {
+    color: $primary-text;
+    font-size: 1.07rem;
+  }
+  .border {
+    transition: border 0.3s ease, background 0.3s ease;
+    background: $background;
+    border: 2px solid $control-base;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    border-radius: 2px;
+    display: block;
+    margin-right: 10px;
+    &.is-checked {
+      background: $control-primary;
+      border-color: $control-primary;
+    }
+  }
+  .border .tick {
+    transition: all 0.3s ease;
+    transform: scale(0);
+    background: url('/library/assets/images/check_bez_ramki-2.svg') no-repeat;
+    height: $checkbox-size;
+    width: $checkbox-size;
+    left: 0;
+    position: relative;
+    top: 2px;
+  }
+  .border .tick[is-checked="true"],
+  .border .tick.is-checked {
+    transform: scale(0.9);
+  }
+}
