@@ -1,3 +1,17 @@
+<!--CR: Jeśli ten komponent będzie zawsze wykorzystywany do wyświetlania takich samych nagłówków
+        pytanie czy nie lepiej zamast używać ng-content przekazać mu jako @Input() title.
+        komponent w takiej postaci jak jest teraz nie ma zbyt wielkiego sensu, nie posiada żadnej logiki i wyświetla
+        to co jest wewnątrz, opakowując to w jedną klasę. Przerobiłabym to tak jak poniżej:
+
+        <div class="header">
+          <div headerContent>
+            {{title}}
+          </div>
+        </div>
+
+        Chyba że te nagłówki mają docelowo wyglądać kompletnie inaczej w różnych komponentach,
+        wtedy można zostawić tak jak jest.
+-->
 <div class="header">
   <ng-content select="[headerContent]"></ng-content>
 </div>
