@@ -5,10 +5,10 @@
     <div class="form-group">
       <input formControlName="login" class="form-control" placeholder="Login">
       <input formControlName="password" class="form-control" placeholder="Password">
-      <input formControlName="passwordAgain" class="form-control" placeholder="Password Again">
+      <!-- <input formControlName="passwordAgain" class="form-control" placeholder="Password Again"> -->
       <input formControlName="name" class="form-control" placeholder="Imie">
       <input formControlName="surname" class="form-control" placeholder="Nazwisko">
-      <button (click)="zarejestrujUzytkownika()" class="btn btn-primary">Zaloz konto</button>
+      <button (click)="sprawdzLogin()" class="btn btn-primary">Zaloz konto</button>
       <button (click)="zalogujNavigate()" class="btn">Przejdz do strony logowania</button>
     </div>
   </form>
@@ -17,7 +17,7 @@
 <pre>
   login: {{ this.registerForm.get('login').value }}
   password: {{ this.registerForm.get('password').value }}
-  passwordAgain: {{ this.registerForm.get('passwordAgain').value }}
+  <!-- passwordAgain: {{ this.registerForm.get('passwordAgain').value }} -->
   name: {{ this.registerForm.get('name').value }}
   surname: {{ this.registerForm.get('surname').value }}
   value: {{ this.registerForm.value }} 

@@ -14,6 +14,7 @@ import { AdminRoutingModule } from './admin/admin-routing-module';
 import { PacjentModule } from "app/pacjent/pacjent.module";
 import { PacjentRoutingModule } from "app/pacjent/pacjent-routing-module";
 import { UzytkownikModule } from "app/uzytkownik/uzytkownik.module";
+import { SesjaService } from "app/sesja.service";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { UzytkownikModule } from "app/uzytkownik/uzytkownik.module";
     PacjentRoutingModule,
     UzytkownikModule,
   ],
-  providers: [],
+  providers: [SesjaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -68,7 +68,9 @@ export class ZapisNaWizyteComponent implements OnInit {
   zapiszNaWizyte() {
     let dane: Object = {};
     dane['wolny'] = false;
-    dane['pacjent'] = "Jan Kowalski Na Sztywno";
+    let name = sessionStorage.getItem('name');
+    let surname = sessionStorage.getItem('surname');
+    dane['pacjent'] = `${name} ${surname}`;
     dane['powod'] = this.zapisForm.get('powod').value;
     // let daneJSON = JSON.stringify(dane); //spr, czemu to nie dziala
     

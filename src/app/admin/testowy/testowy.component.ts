@@ -4,13 +4,15 @@ import { Doctor } from "../../admin/models/doctor";
 import { TestowyService } from '../testowy.service';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { SesjaService } from "app/sesja.service";
+import { UzytkownikService } from "app/uzytkownik/uzytkownik.service";
 
 @Component({
   selector: 'testowy',
   templateUrl: './testowy.component.html',
   styleUrls: ['./testowy.component.less'],
   // providers: [DoktorService] //nie trzeba, bo dodalem go do providers w module
-  providers: [TestowyService]
+  providers: [TestowyService, UzytkownikService]
 })
 export class TestowyComponent implements OnInit {
   zmienna = "jakis tekst";
@@ -347,13 +349,43 @@ export class TestowyComponent implements OnInit {
     this.router.navigate(['test/grafik', lekarz.id]);
   }
 
+  sprawdzUprawnienia() {
+    let token: string = this.sesjaService.getItem('token');
+    this.uzytkownikService.sprawdzUprawnienia(token).subscribe(
+      value => {
+        console.log("Otrzymana odpowiedz");
+        console.log(value);
+        if (value['role'] == 'administrator') {
+          this.zaladujDoktorow();
+          this.getDoctors();
+          this.doctorForm = this.buildDoctorForm();
+        }
+        else {
+        console.log("Brak uprawnien");
+        this.router.navigate
+        }
+      },
+      error => {
+        console.log(error);
+        console.log("Wystapil blad");
+        this.router.navigate
+      },
+      () => {
+        console.log("sprawdzUprawnienia() przetworzono");
+      }
+    )
+  }
+
   constructor(private doktorService: DoktorService, 
               private testowyService: TestowyService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private uzytkownikService: UzytkownikService,
+              private sesjaService: SesjaService) {
   }
 
   ngOnInit() {
+    // this.sprawdzUprawnienia();
     this.zaladujDoktorow();
     this.getDoctors();
     this.doctorForm = this.buildDoctorForm();

@@ -1,5 +1,10 @@
 <div class="sidebar">
   <img src="../../../assets/logo.png" class="logo">
+  <div *ngIf="(name !== '' && surname !== '')" class="text-center">
+    <h6>Witaj {{name}} {{surname}}!</h6>
+    <button (click)="wyloguj()" class="btn btn-primary">Wyloguj się</button>
+  </div>
+  <hr>
   <nav>
     <ul> 
       <li [routerLink]="'admin/lista'" [routerLinkActive]="'active'">Admin</li>

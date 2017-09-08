@@ -1,6 +1,6 @@
 <!-- <app-doctors-list></app-doctors-list> -->
 
-<sidebar></sidebar>
+<sidebar *ngIf="sesjaService.czyZalogowany()"></sidebar>
 
 <div id="content-wrapper">
     <router-outlet></router-outlet>
