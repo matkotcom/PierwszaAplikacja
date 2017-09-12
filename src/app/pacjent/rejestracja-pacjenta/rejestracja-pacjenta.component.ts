@@ -36,6 +36,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
   showTerminyZLekarzamiTab: boolean = true;
 
   tempDostepneMiasta = ["Wroclaw", "Warszawa", "Krakow", "Lublin", "Gdansk"];
+  miastaInvalid: boolean = false;
 
   pobierzLekarzy() {
     this.pacjentService.pobierzLekarzy().subscribe(
@@ -109,6 +110,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
   }
 
   buildSearchForm() {
+    console.log("Budujemy formularz");
     let obj = {};
     for (let x of this.dostepneMiasta) {
       // console.log(x);
@@ -117,10 +119,10 @@ export class RejestracjaPacjentaComponent implements OnInit {
     }
 
     this.searchForm = new FormGroup({
-      spec: new FormControl('Ortopeda', [Validators.required, Validators.pattern(/[^-]/g)]),
+      spec: new FormControl('---', [Validators.required, Validators.pattern(/[^-]/g)]),
       cities: new FormGroup(obj),
-      dataStart: new FormControl('2017-08-27', [Validators.required]),
-      dataStop: new FormControl('2017-08-29', [Validators.required])
+      dataStart: new FormControl('2017-09-11', [Validators.required]),
+      dataStop: new FormControl('2017-09-14', [Validators.required])
     });
   //     //do testow takie:
   //     spec: ['Ortopeda', [Validators.required, Validators.pattern(/[^-]/g)]],
@@ -190,10 +192,25 @@ export class RejestracjaPacjentaComponent implements OnInit {
         }
       }
     }
+    if (this.wolneTerminyTab.length === 0)
+      alert("Brak wolnych terminow");
   }
 
   zapisNaWizyte(idTerminu: Number) {
     this.router.navigate(['pacjent/rejestracja', idTerminu]);
+  }
+
+  walidujMiasta() {
+    this.miastaInvalid = true;
+    // for (let i = 0; i < this.dostepneMiasta.length; i++) {
+    //   let checkbox = document.getElementsByClassName("checkCity")[i];
+    //   if (checkbox.checked === true)
+    //     this.miastaInvalid = false;
+    // } //spr, czemu powyzsze nie dziala?
+    for (let x of this.dostepneMiasta) {
+      if (this.searchForm.get('cities').get(`${x}`).value) //jesli ktorekolwiek miasto zaznaczone
+        this.miastaInvalid = false; //to formularz mozna wyslac
+    }
   }
 
   test() {
@@ -224,6 +241,10 @@ export class RejestracjaPacjentaComponent implements OnInit {
   ngOnInit() {
     this.pobierzLekarzy();
     this.pobierzTerminy();
+  }
+
+  ngDoCheck() {
+    this.walidujMiasta();
   }
 
 }

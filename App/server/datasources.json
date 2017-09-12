@@ -1,0 +1,17 @@
+{
+  "db": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "dobraBaza",
+    "password": "",
+    "name": "db",
+    "user": "",
+    "connector": "mongodb"
+  },
+  "dbUSUNTEWIELKIELITERYIPOWYZSZEDBWTEDYDANEBEDAZAPISYWANEDOPLIKUMOJEDANEJSON": {
+    "name": "dbUSUNTEWIELKIELITERYIPOWYZSZEDBWTEDYDANEBEDAZAPISYWANEDOPLIKUMOJEDANEJSON",
+    "connector": "memory",
+    "file": "mojeDane.json"
+  }
+}

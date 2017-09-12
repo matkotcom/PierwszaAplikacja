@@ -19,7 +19,7 @@
       <label>Miasta</label>
         <div class="checkbox" [formGroup]="searchForm.get('cities')">
           <label *ngFor="let miasto of dostepneMiasta">
-            <input type="checkbox" formControlName={{miasto}}> {{ miasto }}
+            <input (click)="walidujMiasta()" type="checkbox" formControlName={{miasto}} class="checkCity" id="foo"> {{ miasto }}
           </label>
         </div>
 
@@ -29,15 +29,15 @@
       <label>Data do</label>
       <input type="date" class="form-control" formControlName="dataStop">
     </div>
-    <button (click)="szukajTerminu()" class="btn btn-primary" [disabled]="searchForm.invalid">Szukaj wolnego terminu</button>
+    <button (click)="szukajTerminu()" class="btn btn-primary" [disabled]="searchForm.invalid || miastaInvalid">Szukaj wolnego terminu</button>
   </form>
 
-   <pre>
+    <pre>
     spec: {{ searchForm?.get('spec').value }}  
-    cities. wroclaw: {{ searchForm?.get('cities').get('Wroclaw').value }}  
-    dataStart: {{ searchForm?.get('dataStart').value }}  
-    dataStop {{ searchForm?.get('dataStop').value }}  
-  </pre>    
+    <!-- cities. wrocław: {{ searchForm?.get('cities').get('Wrocław').value }}       -->
+    dataStart: {{ searchForm?.get('dataStart').value }}   
+    dataStop {{ searchForm?.get('dataStop').value }}     
+  </pre>     
 
 
 

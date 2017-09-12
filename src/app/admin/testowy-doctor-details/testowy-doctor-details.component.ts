@@ -25,7 +25,7 @@ export class TestowyDoctorDetailsComponent implements OnInit {
 
   ladujDoktora() {
     // let id = parseInt(this.route.snapshot.params['id']); //pobieramy obecne id ze sciezki na ktorej jestesmy
-    const id = +this.route.snapshot.params['id']; //pobieramy obecne id ze sciezki na ktorej jestesmy
+    const id = this.route.snapshot.params['id']; //pobieramy obecne id ze sciezki na ktorej jestesmy
     // console.log("snapshot.params: ");
     // console.log(this.route.snapshot.params); //to obiekt z kluczem id o wartosci jakiejs tam
     this.testowyService.pobierzDoktoraZSerwera(id).subscribe(

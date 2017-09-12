@@ -17,7 +17,7 @@ export class TestowyFormularzComponent implements OnInit {
   lekarz: Doctor;
   terminyTab: Termin[] = [];
   terminyTabSerwer: Termin[] = [];
-  idLekarzaURL = +this.route.snapshot.params['id'];
+  idLekarzaURL = this.route.snapshot.params['id'];
   formularzPacjentInvalid: boolean = false;
   dostepneMiasta: String[] = ["---"];
   daneLekarza: Doctor;
@@ -30,7 +30,7 @@ export class TestowyFormularzComponent implements OnInit {
       wolny: true,
       pacjent: '',
       powod: '',
-      idLekarza: 5,
+      idLekarza: "5",
       id: 1,
       miasto: "Wroclaw"
     };
@@ -42,7 +42,7 @@ export class TestowyFormularzComponent implements OnInit {
       wolny: false,
       pacjent: 'Grzegorz Nowak',
       powod: 'Ból zęba',
-      idLekarza: 10,
+      idLekarza: "10",
       id: 2,
       miasto: "Warszawa"
     }
@@ -187,7 +187,7 @@ export class TestowyFormularzComponent implements OnInit {
   }
 
   pobierzTerminy() {
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
     this.testowyService.pobierzTerminyDoktoraZSerwera(id).subscribe(
       value => {
         this.terminyTabSerwer = value;
@@ -200,7 +200,7 @@ export class TestowyFormularzComponent implements OnInit {
   }
 
   pobierzDaneLekarza() {
-    const id = +this.route.snapshot.params['id'];
+    const id = this.route.snapshot.params['id'];
     this.testowyService.pobierzDoktoraZSerwera(id).subscribe(
       value => {
         this.daneLekarza = value;
@@ -226,9 +226,14 @@ export class TestowyFormularzComponent implements OnInit {
       let obj = this.terminForm.value;
       obj['pacjent'] = null;
       obj['powod'] = null;
-      obj['idLekarza'] = this.idLekarzaURL;
       this.terminForm.setValue(obj);
+      obj['idLekarza'] = this.idLekarzaURL;
     }
+
+    let obj = this.terminForm.value;
+    obj['idLekarza'] = this.idLekarzaURL;
+    console.log("this.terminForm.value = ");
+    console.log(this.terminForm.value);
 
     this.testowyService.wyslijTerminNaSerwer(this.terminForm.value).subscribe(
       value => {
@@ -237,7 +242,9 @@ export class TestowyFormularzComponent implements OnInit {
         console.log("odpowiedz z serwera (value) zmapowana i json() = ");
         console.log(value);
         this.terminForm.reset(); //resetowanie formularza po poprawnym wyslaniu terminu
+        console.log("przed pobraniem terminow");
         this.pobierzTerminy(); //po wyslaniu doktora do bazy odswiezamy liste doktorow
+        console.log("po pobraniu terminow");
       },
       error => {
         console.log(error);
@@ -297,16 +304,16 @@ export class TestowyFormularzComponent implements OnInit {
   sprawdzInputPacjenta() { 
     if (this.terminForm.get('pacjent').value != '') {
 
-      console.log("Input pacjent = ");
-      console.log(this.terminForm.get('pacjent').value);
+      // console.log("Input pacjent = ");
+      // console.log(this.terminForm.get('pacjent').value);
 
 
-      console.log("W input pacjent cos wpisano");
+      // console.log("W input pacjent cos wpisano");
       this.formularzPacjentInvalid = false;
     }
     else 
       {
-        console.log("Input pacjent jest pusty");
+        // console.log("Input pacjent jest pusty");
         if (this.terminForm.get('wolny').value === false)
           this.formularzPacjentInvalid = true;
       }

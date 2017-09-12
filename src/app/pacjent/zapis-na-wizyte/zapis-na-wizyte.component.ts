@@ -43,7 +43,7 @@ export class ZapisNaWizyteComponent implements OnInit {
     )
   }
 
-  pobierzDaneLekarza(id: Number) {
+  pobierzDaneLekarza(id: string) {
     this.pacjentService.pobierzLekarza(id).subscribe(
       value => {
         console.log("pobierzDaneLekarza VALUE")

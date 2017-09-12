@@ -16,15 +16,15 @@ export class RejestracjaComponent implements OnInit {
 
   buildRegisterForm() {
     return this.formBuilder.group({
-      login: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       // passwordAgain: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      surname: ['', [Validators.required]]
+      name: ['', [Validators.required], Validators.minLength(3)],
+      surname: ['', [Validators.required], Validators.minLength(3)]
     })
   }
 
-  generujToken(): string {
+  /*generujToken(): string {
     let token: string = '';
     let possible = '1234567890qwertyuiopasdfghjklzxcvbnm!@#$%^&*()QWERTYUIOPASDFGHJKLZXCVBNM';
     for (let i = 0; i < 10; i++) {
@@ -32,9 +32,9 @@ export class RejestracjaComponent implements OnInit {
       token += char;
     }
     return token;
-  }
+  }*/
 
-  sprawdzLogin() {
+  /*sprawdzLogin() {
     let login = this.registerForm.get('login').value;
     this.uzytkownikService.sprawdzDostepnoscLoginu(login).subscribe(
       value => {
@@ -56,13 +56,13 @@ export class RejestracjaComponent implements OnInit {
         console.log("sprawdzLogin() przetworzono");
       }
     )
-  }
+  }*/
 
   zarejestrujUzytkownika() {
     let obj = this.registerForm.value;
-    let token = this.generujToken();
-    obj ['token'] = token;
-    obj['role'] = 'user';
+    // let token = this.generujToken();
+    // obj ['token'] = token;
+    obj['role'] = 'Pacjent';
     // delete obj['passwordAgain']; //usuwamy pole z powtorzonym haslem
 
     this.uzytkownikService.zarejestrujUzytkownika(obj).subscribe(
@@ -70,15 +70,24 @@ export class RejestracjaComponent implements OnInit {
         console.log("Otrzymana odpowiedz");
         console.log(value);
         alert("Zarejestrowano poprawnie, mozesz sie teraz zalogowac");
-        this.zalogujNavigate();
+        this.zalogujNavigate(); //spr, odkomentuj to!
       },
       error => {
         console.log(error);
+        alert("Ta nazwa uzytkownika jest juz zajeta, wybierz inna")
       },
       () => {
         console.log("zarejestrujUzytkownika() przetworzono");
       }
     )
+  }
+
+  pokazZnaki() {
+    let passwordInput = document.getElementsByClassName("pass")[0];
+    if (passwordInput.getAttribute("type") === "password") 
+      passwordInput.setAttribute("type", "text");
+    else
+      passwordInput.setAttribute("type", "password");
   }
 
   zalogujNavigate() {

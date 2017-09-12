@@ -25,8 +25,10 @@ export class SidebarComponent implements OnInit {
   }
 
   wyloguj() {
-    console.log("wyloguj");
     sessionStorage.clear();
+    console.log("wyloguj");
+    this.name = '';
+    this.surname = '';
     this.router.navigate(['uzytkownik/zaloguj']);
   }
 

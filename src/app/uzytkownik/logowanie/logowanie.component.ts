@@ -16,23 +16,42 @@ export class LogowanieComponent implements OnInit {
 
   buildLoginForm() {
     return this.formBuilder.group({
-      login: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
   }
 
   zalogujUzytkownika() {
-    let login = this.loginForm.get('login').value;
-    let password = this.loginForm.get('password').value;
-    this.uzytkownikService.zalogujUzytkownika(login, password).subscribe (
+    // let username = this.loginForm.get('username').value;
+    // let password = this.loginForm.get('password').value;
+    let dane = this.loginForm.value;
+    // console.log("*****");
+    // JSON.stringify(dane);
+    // console.log(dane);
+    // console.log("*****");
+    this.uzytkownikService.zalogujUzytkownika(dane).subscribe(
       value => {
         console.log("Otrzymana odpowiedz");
         console.log(value);
         //zapisuje name, surname, token
         this.sesjaService.clear();
-        this.sesjaService.setItem('name', value['name']);
-        this.sesjaService.setItem('surname', value['surname']);
-        this.sesjaService.setItem('token', value['token']);
+        this.sesjaService.setItem('token', value['id']);
+        this.sesjaService.setItem('userId', value['userId']);
+        let token = value['id'];
+        let userId = value['userId'];
+        this.uzytkownikService.pobierzDaneUzytkownika(userId, token).subscribe(
+          value => {
+            console.log(value);
+            this.sesjaService.setItem('name', value['name']);
+            this.sesjaService.setItem('surname', value['surname']);
+          },
+          error => {
+            console.log(error);
+          },
+          () => {
+            console.log("this.uzytkownikService.pobierzDaneUzytkownika() przetworzono");
+          }
+        )
         this.router.navigate(['pacjent/rejestracja'])
       },
       error => {
@@ -43,6 +62,18 @@ export class LogowanieComponent implements OnInit {
         console.log("zalogujUzytkownika() przetworzono");
       }
     )
+  }
+
+  pobierzDaneUzytkownika() {
+
+  }
+
+  pokazZnaki() {
+    let passwordInput = document.getElementsByClassName("pass")[0];
+    if (passwordInput.getAttribute("type") === "password") 
+      passwordInput.setAttribute("type", "text");
+    else
+      passwordInput.setAttribute("type", "password");
   }
 
   zarejestrujNavigate() {

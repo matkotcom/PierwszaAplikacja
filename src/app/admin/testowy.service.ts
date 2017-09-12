@@ -32,7 +32,7 @@ export class TestowyService {
     return this.http.get(this.apiURL).map(res => res.json());
   }
 
-  pobierzDoktoraZSerwera(id: Number): Observable<Doctor> {
+  pobierzDoktoraZSerwera(id: string): Observable<Doctor> {
     return this.http.get(`${this.apiURL}/${id}`).map(res => res.json());
   }
 
@@ -53,7 +53,7 @@ export class TestowyService {
     return this.http.put(`${this.apiURL}/${id}`, dane).map(res => res.json());
   }
 
-  pobierzTerminyDoktoraZSerwera(id: Number): Observable<Termin[]> {
+  pobierzTerminyDoktoraZSerwera(id: string): Observable<Termin[]> {
     // return this.http.get(`${this.apiURLTerminy}?filter=%7B%22where%22%3A%7B%22idLekarza%22%3A%22${id}%22%7D%7D`).map(res => res.json());
     return this.http.get(`${this.apiURLTerminy}?filter[where][idLekarza]=${id}`).map(res => res.json());
   }

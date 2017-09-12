@@ -5,11 +5,11 @@ export class Termin {
     wolny: boolean;
     pacjent: string;
     powod: string;
-    idLekarza: number;
+    idLekarza: string;
     id: number;
     miasto;
 
-    constructor(data: string, start: string, stop: string, wolny: boolean, pacjent: string, powod: string, idlekarza:number, id: number, miasto: string) {
+    constructor(data: string, start: string, stop: string, wolny: boolean, pacjent: string, powod: string, idlekarza:string, id: number, miasto: string) {
         this.data = data;
         this.start = start;
         this.stop = stop;

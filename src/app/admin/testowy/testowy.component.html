@@ -215,6 +215,15 @@ to do:
     - pole Password Again przy formularzu rejestracji - walidacja do niego
     - checkboxy miast - wlasna funkcja walidujaca do nich (musi byc co najmniej jedno zaznaczone)
 
+    SPRAWDZ/ZROB:
+    - Angular Guard
+    - zakladka PacjentPanel oraz DoktorPanel, wchodzimy, sprawdzamy role w sessionStorage, jesli jest NIE odpowiednia to przekierowujemy, jesli jest ok to wysylamy zapytanie najpierw o dane usera o podanym id (z session storage), jesli odbierzemy te dane z serwera to znaczy, ze my jestesmy tym uzytkownikiem (zabezpieczenie przed samodzielna podmiana pola w sessionstorage), nastepnie wysylamy get terminy gdzie id jest takie jak uzyskalismy i juz
+
+    ZAGADKI:
+    - zapytanie rest o termin gdzie idlekarza jest rowne x (gdy x ustalany przez mongo db to nie dzialalo)
+    - trzeba ctrl + F5 zeby pojawil sie formularz w zakladce pacjenta
+    - czemu nie dziala petla po elementach i sprawdzenie checked checkboxa
+
   pacjent:
     ...
   </pre>

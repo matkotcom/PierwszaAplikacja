@@ -11,7 +11,7 @@ export class AddNewDoctorComponent implements OnInit {
 
   @Output() doctorCreated = new EventEmitter<Doctor>();
 
-  createDoctor(id: number, imie: string, nazwisko: string, specjalizacja: string[], miasta: string[]) {
+  createDoctor(id: string, imie: string, nazwisko: string, specjalizacja: string[], miasta: string[]) {
     this.doctorCreated.emit(new Doctor(id, imie, nazwisko, specjalizacja, miasta));
   }
 

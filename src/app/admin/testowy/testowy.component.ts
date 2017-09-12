@@ -351,18 +351,20 @@ export class TestowyComponent implements OnInit {
 
   sprawdzUprawnienia() {
     let token: string = this.sesjaService.getItem('token');
-    this.uzytkownikService.sprawdzUprawnienia(token).subscribe(
+    let userId: string = this.sesjaService.getItem('userId');
+    this.uzytkownikService.pobierzDaneUzytkownika(userId, token).subscribe(
       value => {
         console.log("Otrzymana odpowiedz");
         console.log(value);
-        if (value['role'] == 'administrator') {
+        if (value['role'] == 'Administrator') {
+          console.log("Masz uprawnienia");
           this.zaladujDoktorow();
           this.getDoctors();
           this.doctorForm = this.buildDoctorForm();
         }
         else {
         console.log("Brak uprawnien");
-        this.router.navigate
+        this.router.navigate(['pacjent/rejestracja']);
         }
       },
       error => {
@@ -385,7 +387,7 @@ export class TestowyComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.sprawdzUprawnienia();
+    // this.sprawdzUprawnienia(); //spr, na razie zakomentowane zeby mozna bylo testowac, na koniec odkomentowac
     this.zaladujDoktorow();
     this.getDoctors();
     this.doctorForm = this.buildDoctorForm();
