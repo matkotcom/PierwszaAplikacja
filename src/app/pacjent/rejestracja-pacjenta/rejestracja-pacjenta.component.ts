@@ -42,6 +42,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
     this.pacjentService.pobierzLekarzy().subscribe(
       value => {
         this.lekarzeTab = value
+        this.pobierzTerminy();
       },
       error => {
         console.log(error)
@@ -57,9 +58,13 @@ export class RejestracjaPacjentaComponent implements OnInit {
       value => {
         this.terminyTab = value
         if (this.lekarzeTab.length > 0) {
+          console.log("**********");
+          console.log("zaraz powinna sie utworzyc tabela wolnych terminow z lekarzami i zbudowac wartosci formularza");
           this.utworzTabeleWolnychTerminowLekarzy(); //dodane
           this.zbudujWartosciFormularza(); //dodane
         }
+        console.log("**********");
+        console.log("A zaraz powinien zbudowac sie formularz");
         this.buildSearchForm(); //dodane
       },
       error => {
@@ -240,7 +245,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
 
   ngOnInit() {
     this.pobierzLekarzy();
-    this.pobierzTerminy();
+    // this.pobierzTerminy(); //byl problem z koniecznoscia ctrl+F5
   }
 
   ngDoCheck() {
