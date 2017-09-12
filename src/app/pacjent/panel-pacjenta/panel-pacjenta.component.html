@@ -1,3 +1,37 @@
-<p>
-  panel-pacjenta works!
-</p>
+<div class="container">
+  <h1 class="text-center">
+    <hr>
+    Twoje wizyty
+    <hr>
+  </h1>
+  <table class="table table-striped" *ngIf="terminyPacjentaZLekarzamiTab.length > 0">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Miasto</th>  
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Specs</th>
+        <th>Akcje</th>
+      </tr>
+    </thead>
+    <tbody>
+        <!-- <tr *ngFor="let terminZLekarzem of terminyPacjentaZLekarzamiTab">   -->
+        <tr *ngFor="let terminZLekarzem of terminyPacjentaZLekarzamiTab | sortujTerminy">   
+        <td>{{ terminZLekarzem.data }}</td>
+        <td>{{ terminZLekarzem.start }}</td>
+        <td>{{ terminZLekarzem.stop }}</td>
+        <td>{{ terminZLekarzem.miasto }}</td>
+        <td>{{ terminZLekarzem.name }}</td>
+        <td>{{ terminZLekarzem.surname }}</td>
+        <td>{{ terminZLekarzem.specs }}</td>
+        <td>
+          <button *ngIf="terminZLekarzem.minal === false" (click)="zrezygnujZWizyty(terminZLekarzem)" class="btn btn-danger">Zrezygnuj z wizyty</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

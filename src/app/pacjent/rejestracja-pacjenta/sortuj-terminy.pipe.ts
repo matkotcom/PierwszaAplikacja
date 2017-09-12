@@ -14,6 +14,7 @@ export class SortujTerminyPipe implements PipeTransform {
 
     console.log("lista zaladowana");
     return listaTerminowZLekarzami.sort(function(a: TerminZLekarzem, b: TerminZLekarzem): number {
+      console.log("tutaj nie wchodzi");
       let aData: Number = Date.parse(a.data);
       let bData: Number = Date.parse(b.data);
 
@@ -26,13 +27,34 @@ export class SortujTerminyPipe implements PipeTransform {
       else { //gdy mamy ten sam dzien
         let aGodz = parseInt(a.start.substring(0,2));
         let bGodz = parseInt(b.start.substring(0,2));
-        if (aGodz < bGodz)
+
+        if (aGodz < bGodz) {
+          // console.log("*****");
+          // console.log(aGodz);
+          // console.log(bGodz);
+          // console.log("*****");
+          // console.log("aGodz < bGodz");
           return -1;
-        else if (aGodz > bGodz)
+        }
+          
+        else if (aGodz > bGodz) {
+          // console.log("aGodz > bGodz");
           return 1;
+        }
         else { //gdy dni i godziny sa rowne
-          let aMin = parseInt(a.stop.substring(3,5));
-          let bMin = parseInt(b.stop.substring(3,5));
+          let aMin = parseInt(a.start.substring(3,5));
+          let bMin = parseInt(b.start.substring(3,5));
+          
+          console.log("godziny takie same");
+          console.log("*****");
+          console.log(`a.start = ${a.start}`);
+          console.log(`b.start = ${b.start}`);
+          console.log(`aGodz = ${aGodz}`);
+          console.log(`bGodz = ${bGodz}`);
+          console.log(`aMin = ${aMin}`);
+          console.log(`bMin = ${bMin}`);
+          console.log("*****");
+
           if (aMin < bMin)
             return -1;
           else if (aMin > bMin)

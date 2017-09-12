@@ -29,6 +29,9 @@
     "powod": {
       "type": "string"
     },
+    "idPacjenta": {
+      "type": "string"
+    },
     "idLekarza": {
       "type": "string",
       "required": true

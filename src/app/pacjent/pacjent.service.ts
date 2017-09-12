@@ -32,4 +32,8 @@ export class PacjentService {
     return this.http.patch(`${this.apiURLTerminy}/${id}`, dane).map(res => res.json());
   }
 
+  pobierzTerminyPacjenta(id: string): Observable<Termin[]> {
+    return this.http.get(`${this.apiURLTerminy}/?filter[where][idPacjenta]=${id}`).map(res => res.json());
+  }
+  
 }

@@ -74,4 +74,8 @@ export class TestowyService {
     return this.http.put(`${this.apiURLTerminy}/${id}`, dane).map(res => res.json());
   }
 
+  zaktualizujPoleTerminu(id: Number, dane: any): Observable<Termin> {
+    return this.http.patch(`${this.apiURLTerminy}/${id}`, dane).map(res => res.json());
+  }
+
 }

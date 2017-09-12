@@ -23,11 +23,11 @@ export class SesjaService {
 
   czyZalogowany(): boolean {
     if (sessionStorage.length > 0 && sessionStorage.getItem('name') !== '' && sessionStorage.getItem('surname') !== '' && sessionStorage.getItem('token') !== '') {
-      console.log("zalogowany true");
+      // console.log("zalogowany true");
       return true;
     }
     else {
-      console.log("zalgowany false");
+      // console.log("zalgowany false");
       return false;
     }
   }

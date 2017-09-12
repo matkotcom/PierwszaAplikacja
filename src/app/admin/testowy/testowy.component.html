@@ -1,230 +1,233 @@
-<p>
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-  testowy works!
-</p>
-
-<hr>
-<div class="row">
-  <div class="col-sm-12">
-    <table *ngIf="doctorsTab.length > 0" class="table table-striped my-table">
-      <thead>
-        <tr>
-          <th>doktor id</th>
-          <th>Imie</th>
-          <th>Nazwisko </th>
-          <th>Specjalizacje</th>
-          <th>Miasta</th>
-          <th>Sprawdź grafik</th>
-          <th>Akcje</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">  -->
-        <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" [routerLink]="['test', lekarz.id]"> -->
-        <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor"> -->
-        <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index">
-        <!-- spr, zmieniono linijke wyzej -->
-        <td>{{ lekarz.id }} | angularIndex = {{ i }}</td> 
-        <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td> 
-        <!-- spr, zmieniono linijke wyzej -->
-        <td>{{ lekarz.surname | uppercase}}</td> 
-        <!-- spr, zmieniono linijke wyzej -->
-        <td>{{ lekarz.specs }}</td>  
-        <td>{{ lekarz.cities }}</td>    
-        <td>
-          Tu bedzie button grafik
-          <!-- <button (click)="pokazGrafik(lekarz)">Grafik</button> -->
-          <button [routerLink]="['formularz', lekarz.id]" class="btn btn-primary">Grafik</button>
-        </td>
-        <td>
-          <button (click)="goToDoktorDetails(lekarz)" class="btn btn-primary">Edytuj</button>
-          <button (click)="usunDoktora(lekarz.id)" class="btn btn-primary">Usun</button>
-          <button (click)="testFunc(lekarz)" class="btn">testFunc()</button>
-        </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <div class="no-doctors-info" *ngIf="doctorsTab.length == 0">
-      <p>Brak lekarzy w bazie</p>
-    </div>
-  </div>
-</div>
-
-<hr>
-<button (click)=zaladujDoktorow()>Zaladuj doktorow</button>
-
-<hr>
-wartosc zmiennej "zmienna" = {{ zmienna }} <br>
-
-<button class="btn btn-primary" (click)="zmienSortowanie()">Zmien sortowanie (rosnaco/malejaco)</button>
-
-<hr>
-<form [formGroup]="doctorForm">
-  <div class="row">
-    <div class="col-sm-12">
-      <input [ngClass]="{'errorClass': !doctorForm.get('name').valid && doctorForm.get('name').dirty}" formControlName="name" type="text" class="form-control" placeholder="imie: Marcin">
-       <p *ngIf="!doctorForm.get('name').valid && doctorForm.get('name').dirty" class="error">To pole jest wymagane</p> 
-    </div>
-  </div>
-   <div class="row"> 
-    <div class="col-sm-12">
-      <input formControlName="surname" type="text" class="form-control" placeholder="nazwisko: Nowak">
-      <p *ngIf="!doctorForm.get('surname').valid && doctorForm.get('surname').dirty" class="error">To pole jest wymagane</p>
-    </div>
-   </div> 
-  <div class="row">
-    <div class="col-sm-12">
-      <input formControlName="specs" type="text" class="form-control" placeholder='specjalizacje: Okulista,Ortopeda,Laryngolog (bez spacji)'>
-      <p *ngIf="!doctorForm.get('specs').valid && doctorForm.get('specs').dirty" class="error">To pole jest wymagane</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <input formControlName="cities" type="text" class="form-control" placeholder='miasta: Wroclaw,Krakow (bez spacji)'>
-      <p *ngIf="!doctorForm.get('cities').valid && doctorForm.get('cities').dirty" class="error">To pole jest wymagane</p>
-    </div>
-  </div>
-    <button (click)="wyslijDoktora()" [disabled]="doctorForm.invalid" type="sumbit" class="btn btn-primary">Dodaj</button>
-    <button (click)="doctorForm.reset()" class="btn btn-danger">Wyczysc</button>
-    <button (click)="losujDane()" class="btn btn-info">Losuj dane lekarza</button>
-</form>
-  <pre> doctor.Form.value | json ma wartosc: 
-    {{ doctorForm.value | json }}
-
-    doctor.Form.value ma wartosc: 
-    {{ doctorForm.value }}
-
-    walidacja name: {{ doctorForm.get('name').valid }}  
-    walidacja surname: {{ doctorForm.get('surname').valid }}  
-    surname.dirty?: {{ doctorForm.get('surname').dirty }}  
-    doctorForm.valid: {{ doctorForm.valid }}
-    doctorForm.invalid: {{ doctorForm.invalid }}
-    doctorForm.get('name').value: {{ doctorForm.get('name').value }}
-  </pre>
+<div class="container-fluid">
+  <p>
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+    testowy works!
+  </p>
 
   <hr>
-  <pre>
-       Odpowiedz z serwera  
-    lekarzeOdpowiedzValue =
-     {{ lekarzeOdpowiedzValue }}
+  <div class="row">
+    <div class="col-sm-12">
+      <table *ngIf="doctorsTab.length > 0" class="table table-striped my-table">
+        <thead>
+          <tr>
+            <th>doktor id</th>
+            <th>Imie</th>
+            <th>Nazwisko </th>
+            <th>Specjalizacje</th>
+            <th>Miasta</th>
+            <th>Sprawdź grafik</th>
+            <th>Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let lekarz of doctorsTab | sortujLekarzy:typSortowania; let i = index">  -->
+          <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor" [routerLink]="['test', lekarz.id]"> -->
+          <!-- <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index" class="row-doctor"> -->
+          <tr *ngFor="let lekarz of doctorsTabSerwer | sortujLekarzy:typSortowania; let i = index">
+          <!-- spr, zmieniono linijke wyzej -->
+          <td>{{ lekarz.id }} | angularIndex = {{ i }}</td> 
+          <td>{{ lekarz.name | probny:'Imie lekarza nie jest znane, probny pipe dziala' }}</td> 
+          <!-- spr, zmieniono linijke wyzej -->
+          <td>{{ lekarz.surname | uppercase}}</td> 
+          <!-- spr, zmieniono linijke wyzej -->
+          <td>{{ lekarz.specs }}</td>  
+          <td>{{ lekarz.cities }}</td>    
+          <td>
+            Tu bedzie button grafik
+            <!-- <button (click)="pokazGrafik(lekarz)">Grafik</button> -->
+            <button [routerLink]="['formularz', lekarz.id]" class="btn btn-primary">Grafik</button>
+          </td>
+          <td>
+            <button (click)="goToDoktorDetails(lekarz)" class="btn btn-primary">Edytuj</button>
+            <button (click)="usunDoktora(lekarz.id)" class="btn btn-primary">Usun</button>
+            <button (click)="testFunc(lekarz)" class="btn">testFunc()</button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="no-doctors-info" *ngIf="doctorsTab.length == 0">
+        <p>Brak lekarzy w bazie</p>
+      </div>
+    </div>
+  </div>
 
-    lekarzeOdpowiedzValue | json =
-     {{ lekarzeOdpowiedzValue | json }}
-  </pre>
+  <hr>
+  <button (click)=zaladujDoktorow()>Zaladuj doktorow</button>
 
-<hr>
-wejsciowe:
-<ul *ngFor="let imie of lista">
-  <li>imie: {{ imie }}</li>
-</ul>
+  <hr>
+  wartosc zmiennej "zmienna" = {{ zmienna }} <br>
 
-<hr>
-posortowane:
-<ul *ngFor="let imie of lista | sortuj">
-  <li>imie: {{ imie }}</li>
-</ul>
+  <button class="btn btn-primary" (click)="zmienSortowanie()">Zmien sortowanie (rosnaco/malejaco)</button>
 
-<hr>
-<p>SERWER TEST</p>
-<button (click)=loadGetTime()>Test GET - loadGetTime() - date.jsontest.com</button>
-<p>Wynik: {{ getTime }}</p>
-<button (click)=loadGetData()>Test GET - loadGetData() - serwer lokalny /products</button>
-<pre>Wynik pre: {{ getDataJSON }}</pre>
-<pre>Wynik pre pipe: {{ getDataJSON | json }}</pre>
+  <hr>
+  <form [formGroup]="doctorForm">
+    <div class="row">
+      <div class="col-sm-12">
+        <input [ngClass]="{'errorClass': !doctorForm.get('name').valid && doctorForm.get('name').dirty}" formControlName="name" type="text" class="form-control" placeholder="imie: Marcin">
+        <p *ngIf="!doctorForm.get('name').valid && doctorForm.get('name').dirty" class="error">To pole jest wymagane</p> 
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="col-sm-12">
+        <input formControlName="surname" type="text" class="form-control" placeholder="nazwisko: Nowak">
+        <p *ngIf="!doctorForm.get('surname').valid && doctorForm.get('surname').dirty" class="error">To pole jest wymagane</p>
+      </div>
+    </div> 
+    <div class="row">
+      <div class="col-sm-12">
+        <input formControlName="specs" type="text" class="form-control" placeholder='specjalizacje: Okulista,Ortopeda,Laryngolog (bez spacji)'>
+        <p *ngIf="!doctorForm.get('specs').valid && doctorForm.get('specs').dirty" class="error">To pole jest wymagane</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <input formControlName="cities" type="text" class="form-control" placeholder='miasta: Wroclaw,Krakow (bez spacji)'>
+        <p *ngIf="!doctorForm.get('cities').valid && doctorForm.get('cities').dirty" class="error">To pole jest wymagane</p>
+      </div>
+    </div>
+      <button (click)="wyslijDoktora()" [disabled]="doctorForm.invalid" type="sumbit" class="btn btn-primary">Dodaj</button>
+      <button (click)="doctorForm.reset()" class="btn btn-danger">Wyczysc</button>
+      <button (click)="losujDane()" class="btn btn-info">Losuj dane lekarza</button>
+  </form>
+    <pre> doctor.Form.value | json ma wartosc: 
+      {{ doctorForm.value | json }}
 
-<hr>
-<pre>Wynik pre: {{ getDataObj }}</pre>
-<pre>Wynik pre pipe: {{ getDataObj | json }}</pre>
+      doctor.Form.value ma wartosc: 
+      {{ doctorForm.value }}
 
-<hr>
-to do:
-<ul>
-  <pre>
-  zrob detail 1 doktora - ok,
-  potem zrob aktualizacje doktora z serwera - ok
-  ŹLE! - zrobic przycisk do losowania danych lekarza a nie takie kombinacje!, wiele to wtedy uprosci - ok
-  pobieranie danych z serwera lokalnego - ok
-  dodac wysylanie danych (formularz), pozniej aktualizacje - ok
-  moze dodac do local storage jakies info, ze uzytkownik jest adminem - brak
+      walidacja name: {{ doctorForm.get('name').valid }}  
+      walidacja surname: {{ doctorForm.get('surname').valid }}  
+      surname.dirty?: {{ doctorForm.get('surname').dirty }}  
+      doctorForm.valid: {{ doctorForm.valid }}
+      doctorForm.invalid: {{ doctorForm.invalid }}
+      doctorForm.get('name').value: {{ doctorForm.get('name').value }}
+    </pre>
 
-  wskazowki Kaliny (inny sposob formularz, header zastanowic sie nad wygladem, do konstruktora dawac caly obiekt a nie pojedyncze wartosci)
-  
-  admin:
-    wyswietlanie (imie, nazw, spec, miasto/a) - ok
-    sortowanie wyswietlania po nazwiskach - ok
-    usuwanie z listy - ok
-    usuwanie z listy (a zarazem z serwera) - ok
-    dodawanie lekarza (najpierw pod lista wyswietlania, pozniej inna zakladka) (na koncu dodac grafik ten co nizej) - brak grafiku, jutro zajac sie grafikiem (TestowyGrafik)!,
-    zastanowic sie czy robic kolejna klase dla Grafiku i kolejny model w bazie, czy wepchac to do wlasnosci klasy Doctor, jak lepiej
-    zrobilem nowy model w bazie - dziala, ok
-    edytowanie z listy -> zarzadzanie grafikiem (to przemyslec) (lista terminow: termin opisany przez dzien, godzina start, godzina koniec, zajety/wolny, jesli zajety to info o pacjencie) - ok
-    dodac zabezpieczenie formularza (validators.required) gdy checkbox = true/false, zmienic to takze w komponencie aktualizujacym dany termin - do zrobienia na koncu
+    <hr>
+    <pre>
+        Odpowiedz z serwera  
+      lekarzeOdpowiedzValue =
+      {{ lekarzeOdpowiedzValue }}
 
+      lekarzeOdpowiedzValue | json =
+      {{ lekarzeOdpowiedzValue | json }}
+    </pre>
 
-    1.sprawdzic co jest z checkboxem przy dodawaniu/aktualizowaniu grafiku lekarza,
-    czasem trzeba nacisnac, czasem jest nacisniety / pojawianie sie pol pacjent i lekarz itd. i z tym IdLekarza kiedy jest a kiedy nie, sprawdzic to
-    2. przy aktualizacji terminu zrobic, zeby zaznaczenie checkboxa resetowalo pola pacjenta itd.
+  <hr>
+  wejsciowe:
+  <ul *ngFor="let imie of lista">
+    <li>imie: {{ imie }}</li>
+  </ul>
+
+  <hr>
+  posortowane:
+  <ul *ngFor="let imie of lista | sortuj">
+    <li>imie: {{ imie }}</li>
+  </ul>
+
+  <hr>
+  <p>SERWER TEST</p>
+  <button (click)=loadGetTime()>Test GET - loadGetTime() - date.jsontest.com</button>
+  <p>Wynik: {{ getTime }}</p>
+  <button (click)=loadGetData()>Test GET - loadGetData() - serwer lokalny /products</button>
+  <pre>Wynik pre: {{ getDataJSON }}</pre>
+  <pre>Wynik pre pipe: {{ getDataJSON | json }}</pre>
+
+  <hr>
+  <pre>Wynik pre: {{ getDataObj }}</pre>
+  <pre>Wynik pre pipe: {{ getDataObj | json }}</pre>
+
+  <hr>
+  to do:
+  <ul>
+    <pre>
+    zrob detail 1 doktora - ok,
+    potem zrob aktualizacje doktora z serwera - ok
+    ŹLE! - zrobic przycisk do losowania danych lekarza a nie takie kombinacje!, wiele to wtedy uprosci - ok
+    pobieranie danych z serwera lokalnego - ok
+    dodac wysylanie danych (formularz), pozniej aktualizacje - ok
+    moze dodac do local storage jakies info, ze uzytkownik jest adminem - brak
+
+    wskazowki Kaliny (inny sposob formularz, header zastanowic sie nad wygladem, do konstruktora dawac caly obiekt a nie pojedyncze wartosci)
     
-    3.ogarnac liste terminow z lekarzami, wyswietlac tylko wolne terminy
+    admin:
+      wyswietlanie (imie, nazw, spec, miasto/a) - ok
+      sortowanie wyswietlania po nazwiskach - ok
+      usuwanie z listy - ok
+      usuwanie z listy (a zarazem z serwera) - ok
+      dodawanie lekarza (najpierw pod lista wyswietlania, pozniej inna zakladka) (na koncu dodac grafik ten co nizej) - brak grafiku, jutro zajac sie grafikiem (TestowyGrafik)!,
+      zastanowic sie czy robic kolejna klase dla Grafiku i kolejny model w bazie, czy wepchac to do wlasnosci klasy Doctor, jak lepiej
+      zrobilem nowy model w bazie - dziala, ok
+      edytowanie z listy -> zarzadzanie grafikiem (to przemyslec) (lista terminow: termin opisany przez dzien, godzina start, godzina koniec, zajety/wolny, jesli zajety to info o pacjencie) - ok
+      dodac zabezpieczenie formularza (validators.required) gdy checkbox = true/false, zmienic to takze w komponencie aktualizujacym dany termin - do zrobienia na koncu
 
-    4.zrobic szukajke (kilka inputow na gorze strony), potem przefiltrowac wyniki w tabeli i wyswietlic tylko te wlasciwe
 
-    5. zobaczymy...
+      1.sprawdzic co jest z checkboxem przy dodawaniu/aktualizowaniu grafiku lekarza,
+      czasem trzeba nacisnac, czasem jest nacisniety / pojawianie sie pol pacjent i lekarz itd. i z tym IdLekarza kiedy jest a kiedy nie, sprawdzic to
+      2. przy aktualizacji terminu zrobic, zeby zaznaczenie checkboxa resetowalo pola pacjenta itd.
+      
+      3.ogarnac liste terminow z lekarzami, wyswietlac tylko wolne terminy
 
-    jest tak, ze w selekcie rozwijanym, jesli chce wybrac 1 opcje to najpierw musze wybrac inna a potem wybrac pierwsza - poprawic to
+      4.zrobic szukajke (kilka inputow na gorze strony), potem przefiltrowac wyniki w tabeli i wyswietlic tylko te wlasciwe
 
-    zrobic sortowanie wynikow po dacie i godzinie w panelu pacjenta
+      5. zobaczymy...
 
-    zrobic komponent do rejestracji (ostatni etap)
+      jest tak, ze w selekcie rozwijanym, jesli chce wybrac 1 opcje to najpierw musze wybrac inna a potem wybrac pierwsza - poprawic to
 
-    zrobic, zeby nie trzeba bylo podawac wszystkich pol w wyszukiwaniu, wystarczy np. tylko specjalnosc
+      zrobic sortowanie wynikow po dacie i godzinie w panelu pacjenta
 
-    jutro zaczac od uzupelnienia komponentu ZapisNaWizyte, zrobic routing gdy klikam na przycisk zapisz na wizyte to przekierowuje mnie do tego komponentu
+      zrobic komponent do rejestracji (ostatni etap)
 
-    REJESTRACJA - jutro
-    walidatory, block przycisk itd.
-    przechowywanie danych o pacjencie w local storage
-    podpiecie tych danych do wysylanego zapytania o zapis na wizyte
-    rozdzielenie rejestracji/loginu na osobny routing (zeby nie bylo nawigacji po lewej)
-    sprawdzanie na kazdej stronie (przy wejsciu) czy jestesmy zalogowani i jakie mamy uprawnienia
+      zrobic, zeby nie trzeba bylo podawac wszystkich pol w wyszukiwaniu, wystarczy np. tylko specjalnosc
 
-    jesli bedzie czas:
-    - pole Password Again przy formularzu rejestracji - walidacja do niego
-    - checkboxy miast - wlasna funkcja walidujaca do nich (musi byc co najmniej jedno zaznaczone)
+      jutro zaczac od uzupelnienia komponentu ZapisNaWizyte, zrobic routing gdy klikam na przycisk zapisz na wizyte to przekierowuje mnie do tego komponentu
 
-    SPRAWDZ/ZROB:
-    - Angular Guard
-    - zakladka PacjentPanel oraz DoktorPanel, wchodzimy, sprawdzamy role w sessionStorage, jesli jest NIE odpowiednia to przekierowujemy, jesli jest ok to wysylamy zapytanie najpierw o dane usera o podanym id (z session storage), jesli odbierzemy te dane z serwera to znaczy, ze my jestesmy tym uzytkownikiem (zabezpieczenie przed samodzielna podmiana pola w sessionstorage), nastepnie wysylamy get terminy gdzie id jest takie jak uzyskalismy i juz
+      REJESTRACJA - jutro
+      walidatory, block przycisk itd.
+      przechowywanie danych o pacjencie w local storage
+      podpiecie tych danych do wysylanego zapytania o zapis na wizyte
+      rozdzielenie rejestracji/loginu na osobny routing (zeby nie bylo nawigacji po lewej)
+      sprawdzanie na kazdej stronie (przy wejsciu) czy jestesmy zalogowani i jakie mamy uprawnienia
 
-    ZAGADKI:
-    - zapytanie rest o termin gdzie idlekarza jest rowne x (gdy x ustalany przez mongo db to nie dzialalo)
-    - trzeba ctrl + F5 zeby pojawil sie formularz w zakladce pacjenta
-    - czemu nie dziala petla po elementach i sprawdzenie checked checkboxa
+      jesli bedzie czas:
+      - pole Password Again przy formularzu rejestracji - walidacja do niego
+      - checkboxy miast - wlasna funkcja walidujaca do nich (musi byc co najmniej jedno zaznaczone)
 
-  pacjent:
-    ...
-  </pre>
-</ul>
+      SPRAWDZ/ZROB:
+      - Angular Guard
+      - zakladka PacjentPanel oraz DoktorPanel, wchodzimy, sprawdzamy role w sessionStorage, jesli jest NIEodpowiednia to przekierowujemy, jesli jest ok to wysylamy zapytanie najpierw o dane usera o podanym id (z session storage), jesli odbierzemy te dane z serwera to znaczy, ze my jestesmy tym uzytkownikiem (zabezpieczenie przed samodzielna podmiana pola w sessionstorage), nastepnie wysylamy get terminy gdzie id jest takie jak uzyskalismy i juz
+
+      ZAGADKI:
+      - zapytanie rest o termin gdzie idlekarza jest rowne x (gdy x ustalany przez mongo db to nie dzialalo)
+      - trzeba ctrl + F5 zeby pojawil sie formularz w zakladce pacjenta - naprawione
+      - czemu nie dziala petla po elementach i sprawdzenie checked checkboxa
+      - czemu pipe w panel-pacjenta nie dziala skoro w rejestracja-pacjenta dziala
+
+    pacjent:
+      ...
+    </pre>
+  </ul>
+</div>

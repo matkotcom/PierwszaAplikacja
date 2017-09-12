@@ -4,12 +4,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Termin } from "app/admin/models/termin";
 import { Doctor } from "app/admin/models/doctor";
 import { FormBuilder, FormGroup, FormControl } from "@angular/forms";
+import { UzytkownikService } from "app/uzytkownik/uzytkownik.service";
+import { SesjaService } from "app/sesja.service";
 
 @Component({
   selector: 'zapis-na-wizyte',
   templateUrl: './zapis-na-wizyte.component.html',
   styleUrls: ['./zapis-na-wizyte.component.less'],
-  providers: [PacjentService]
+  providers: [PacjentService, UzytkownikService, SesjaService]
 })
 export class ZapisNaWizyteComponent implements OnInit {
 
@@ -66,27 +68,43 @@ export class ZapisNaWizyteComponent implements OnInit {
   }
 
   zapiszNaWizyte() {
-    let dane: Object = {};
-    dane['wolny'] = false;
-    let name = sessionStorage.getItem('name');
-    let surname = sessionStorage.getItem('surname');
-    dane['pacjent'] = `${name} ${surname}`;
-    dane['powod'] = this.zapisForm.get('powod').value;
-    // let daneJSON = JSON.stringify(dane); //spr, czemu to nie dziala
-    
+    let token = this.sesjaService.getItem('token');
+    let userId = this.sesjaService.getItem('userId');
 
-    this.pacjentService.zapiszPacjenta(this.termin.id, dane).subscribe(
+    this.uzytkownikService.pobierzDaneUzytkownika(userId, token).subscribe(
       value => {
-        alert("Zapisano pomyslnie");
-        this.router.navigate(['pacjent/rejestracja']);
+        let dane: Object = {};
+        let name = value['name'];
+        let surname = value['surname'];
+        dane['wolny'] = false;
+        dane['powod'] = this.zapisForm.get('powod').value;
+        dane['idPacjenta'] = value['id'];
+        dane['pacjent'] = `${name} ${surname}`;
+        this.sesjaService.setItem('name', value['name']);
+        this.sesjaService.setItem('surname', value['surname']);
+        // let daneJSON = JSON.stringify(dane); //spr, czemu to nie dziala
+
+        this.pacjentService.zapiszPacjenta(this.termin.id, dane).subscribe(
+          value => {
+            alert("Zapisano pomyslnie");
+            this.router.navigate(['pacjent/panel']);
+          },
+          error => {
+            console.log(error);
+          },
+          () => {
+            console.log("zapiszNaWizyte() ZAKONCZONO")
+          }
+        )
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log("zapiszNaWizyte() ZAKONCZONO")
+        console.log("this.uzytkownikService.pobierzDaneUzytkownika() przetworzono");
       }
     )
+
   }
 
   anulujZapisywanie() {
@@ -94,6 +112,8 @@ export class ZapisNaWizyteComponent implements OnInit {
   }
 
   constructor(private pacjentService: PacjentService,
+              private uzytkownikService: UzytkownikService,
+              private sesjaService: SesjaService,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router) { }
