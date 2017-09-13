@@ -1,0 +1,55 @@
+{
+  "ids": {
+    "User": 1,
+    "AccessToken": 2,
+    "ACL": 1,
+    "RoleMapping": 1,
+    "Role": 1,
+    "Product": 1,
+    "Doctor": 5,
+    "Termin": 20,
+    "Uzytkownik": 1,
+    "Client": 2
+  },
+  "models": {
+    "User": {},
+    "AccessToken": {
+      "BHRdHP8biAoWICL08CG26hVJRg6e8sKuxe3ixveGAHCZxhFyNAJukNRN4Lai8zLs": "{\"id\":\"BHRdHP8biAoWICL08CG26hVJRg6e8sKuxe3ixveGAHCZxhFyNAJukNRN4Lai8zLs\",\"ttl\":1209600,\"created\":\"2017-09-13T05:44:22.744Z\",\"userId\":1}"
+    },
+    "ACL": {},
+    "RoleMapping": {},
+    "Role": {},
+    "Product": {},
+    "Doctor": {
+      "1": "{\"name\":\"Marcin\",\"surname\":\"Nowak\",\"specs\":[\"Okulista\",\"Laryngolog\",\"Weterynarz\"],\"cities\":[\"Wrocław\",\"Kraków\"],\"id\":1}",
+      "2": "{\"name\":\"Jan\",\"surname\":\"Kowalski\",\"specs\":[\"Weterynarz\"],\"cities\":[\"Kraków\"],\"id\":2}",
+      "3": "{\"name\":\"Adam\",\"surname\":\"Nowakowski\",\"specs\":[\"Okulista\",\"Ortopeda\"],\"cities\":[\"Wrocław\",\"Kraków\"],\"id\":3}",
+      "4": "{\"name\":\"Piotr\",\"surname\":\"Czyżowski\",\"specs\":[\"Weterynarz\",\"Pediatra\"],\"cities\":[\"Warszawa\",\"Kraków\"],\"id\":4}"
+    },
+    "Termin": {
+      "1": "{\"data\":\"2017-09-12\",\"start\":\"08:12\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"3\",\"miasto\":\"Wrocław\",\"id\":1}",
+      "2": "{\"data\":\"2017-09-13\",\"start\":\"08:14\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"3\",\"miasto\":\"Wrocław\",\"id\":2}",
+      "3": "{\"data\":\"2017-09-13\",\"start\":\"08:09\",\"stop\":\"09:00\",\"wolny\":false,\"pacjent\":\"Monika Wawrzyniak\",\"powod\":\"Ból zęba\",\"idLekarza\":\"3\",\"miasto\":\"Wrocław\",\"id\":3}",
+      "4": "{\"data\":\"2017-09-12\",\"start\":\"07:00\",\"stop\":\"08:00\",\"wolny\":false,\"pacjent\":\"Magda Czarnocka\",\"powod\":\"Ból głowy\",\"idLekarza\":\"3\",\"miasto\":\"Wrocław\",\"id\":4}",
+      "5": "{\"data\":\"2017-09-12\",\"start\":\"08:11\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"1\",\"miasto\":\"Wrocław\",\"id\":5}",
+      "6": "{\"data\":\"2017-09-12\",\"start\":\"09:07\",\"stop\":\"10:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"1\",\"miasto\":\"Wrocław\",\"id\":6}",
+      "7": "{\"data\":\"2017-09-13\",\"start\":\"10:00\",\"stop\":\"11:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"1\",\"miasto\":\"Kraków\",\"id\":7}",
+      "8": "{\"data\":\"2017-09-14\",\"start\":\"08:10\",\"stop\":\"09:00\",\"wolny\":false,\"pacjent\":\"Anna Doniec\",\"powod\":null,\"idLekarza\":\"1\",\"miasto\":\"Kraków\",\"id\":8}",
+      "9": "{\"data\":\"2017-09-12\",\"start\":\"08:05\",\"stop\":\"09:00\",\"wolny\":false,\"pacjent\":\"John Doe\",\"powod\":\"Otyłość chomika\",\"idLekarza\":\"2\",\"miasto\":\"Kraków\",\"id\":9,\"idPacjenta\":\"1\"}",
+      "10": "{\"data\":\"2017-09-13\",\"start\":\"08:05\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"2\",\"miasto\":\"Kraków\",\"id\":10}",
+      "11": "{\"data\":\"2017-09-14\",\"start\":\"08:05\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"2\",\"miasto\":\"Kraków\",\"id\":11}",
+      "12": "{\"data\":\"2017-09-11\",\"start\":\"08:00\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"4\",\"miasto\":\"Warszawa\",\"id\":12}",
+      "13": "{\"data\":\"2017-09-13\",\"start\":\"07:34\",\"stop\":\"08:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"4\",\"miasto\":\"Kraków\",\"id\":13}",
+      "14": "{\"data\":\"2017-09-14\",\"start\":\"09:13\",\"stop\":\"10:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"4\",\"miasto\":\"Warszawa\",\"id\":14}",
+      "15": "{\"data\":\"2017-09-15\",\"start\":\"08:00\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"2\",\"miasto\":\"Kraków\",\"id\":15}",
+      "16": "{\"data\":\"2017-09-15\",\"start\":\"08:00\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"3\",\"miasto\":\"Wrocław\",\"id\":16}",
+      "17": "{\"data\":\"2017-09-14\",\"start\":\"08:00\",\"stop\":\"09:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"4\",\"miasto\":\"Kraków\",\"id\":17}",
+      "18": "{\"data\":\"2017-09-15\",\"start\":\"09:00\",\"stop\":\"10:00\",\"wolny\":false,\"pacjent\":\"John Doe\",\"powod\":\"Ból oka\",\"idLekarza\":\"3\",\"miasto\":\"Wrocław\",\"id\":18,\"idPacjenta\":\"1\"}",
+      "19": "{\"data\":\"2017-09-15\",\"start\":\"10:00\",\"stop\":\"11:00\",\"wolny\":true,\"pacjent\":null,\"powod\":null,\"idLekarza\":\"1\",\"miasto\":\"Wrocław\",\"id\":19}"
+    },
+    "Uzytkownik": {},
+    "Client": {
+      "1": "{\"name\":\"John\",\"surname\":\"Doe\",\"role\":\"Pacjent\",\"username\":\"foo\",\"password\":\"$2a$10$sZm0GflnPu1E4n/dEXENxOGa8U/EpWs1lBHBYUZy2XggysGmmXT.y\",\"id\":1}"
+    }
+  }
+}

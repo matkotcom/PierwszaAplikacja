@@ -61,7 +61,7 @@ export class PanelPacjentaComponent implements OnInit {
           value => {
             // console.log("Odbieram dane o lekarzu:");
             // console.log(value);
-            if (termin.idLekarza === value['id']) {
+            if (termin.idLekarza == value['id']) {
               // console.log("if ok");
               let terminZLekarzem: TerminZLekarzem = new TerminZLekarzem();
               terminZLekarzem['data'] = termin.data;

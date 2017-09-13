@@ -9,9 +9,9 @@
     "user": "",
     "connector": "mongodb"
   },
-  "dbUSUNTEWIELKIELITERYIPOWYZSZEDBWTEDYDANEBEDAZAPISYWANEDOPLIKUMOJEDANEJSON": {
-    "name": "dbUSUNTEWIELKIELITERYIPOWYZSZEDBWTEDYDANEBEDAZAPISYWANEDOPLIKUMOJEDANEJSON",
+  "db2": {
+    "name": "db2",
     "connector": "memory",
-    "file": "mojeDane.json"
+    "file": "mojeDane2.json"
   }
 }

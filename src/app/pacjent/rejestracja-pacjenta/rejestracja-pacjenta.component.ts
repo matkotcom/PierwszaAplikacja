@@ -77,6 +77,11 @@ export class RejestracjaPacjentaComponent implements OnInit {
   }
   
   utworzTabeleWolnychTerminowLekarzy() {
+    console.log(`this.terminyTab`);
+    console.log(this.terminyTab);
+    console.log(`this.lekarzeTab`);
+    console.log(this.lekarzeTab);
+
     for (let termin of this.terminyTab) {
       //buduje liste wolnych terminow
       if (termin.wolny === true) {
@@ -84,7 +89,7 @@ export class RejestracjaPacjentaComponent implements OnInit {
         let idLekarza = termin.idLekarza;
 
         for (let lekarz of this.lekarzeTab) {
-          if (lekarz.id === idLekarza) {
+          if (lekarz.id == idLekarza) {
             terminZLekarzem['name'] = lekarz.name;
             terminZLekarzem['surname'] = lekarz.surname;
             terminZLekarzem['specs'] = lekarz.specs;
@@ -103,8 +108,8 @@ export class RejestracjaPacjentaComponent implements OnInit {
           }
         }
 
-        // console.log("this.terminyZLekarzamiTab = ");
-        // console.log(this.terminyZLekarzamiTab);
+        console.log("this.terminyZLekarzamiTab = ");
+        console.log(this.terminyZLekarzamiTab);
       }
     }
   }

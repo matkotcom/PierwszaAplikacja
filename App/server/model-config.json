@@ -14,45 +14,45 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "db2"
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": false
   },
   "Product": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": true
   },
   "Doctor": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": true
   },
   "Termin": {
-    "dataSource": "dbUSUNTEWIELKIELITERYIPOWYZSZEDBWTEDYDANEBEDAZAPISYWANEDOPLIKUMOJEDANEJSON",
+    "dataSource": "db2",
     "public": true
   },
   "Uzytkownik": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": true
   },
   "Client": {
-    "dataSource": "db",
+    "dataSource": "db2",
     "public": true
   }
 }
